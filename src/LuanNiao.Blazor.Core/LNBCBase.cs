@@ -13,7 +13,7 @@ namespace LuanNiao.Blazor.Core
     /// <summary>
     /// Wave's blazor component's base class
     /// </summary>
-    public abstract class WBCBase : ComponentBase, IDisposable
+    public abstract class LNBCBase : ComponentBase, IDisposable
     {
 
         private readonly int _createSequence = 0;
@@ -23,11 +23,11 @@ namespace LuanNiao.Blazor.Core
 
 
         #region disposable pattern
-        public WBCBase()
+        public LNBCBase()
         {
-            _createSequence = WBCState.Instance.GetID();
+            _createSequence = LNBCState.Instance.GetID();
         }
-        ~WBCBase()
+        ~LNBCBase()
         {
             this.Dispose(false);
         }
@@ -52,7 +52,7 @@ namespace LuanNiao.Blazor.Core
         }
         #endregion
 
-        public event Action<WBCBase> Disposing;
+        public event Action<LNBCBase> Disposing;
         public string IdentityKey => Guid.NewGuid().ToString("N", Thread.CurrentThread.CurrentCulture);
 
         [CascadingParameter]
@@ -96,7 +96,7 @@ namespace LuanNiao.Blazor.Core
 
         public override bool Equals(object obj)
         {
-            if (obj is WBCBase item)
+            if (obj is LNBCBase item)
             {
                 return item.IdentityKey.Equals(this.IdentityKey);
             }
@@ -112,7 +112,7 @@ namespace LuanNiao.Blazor.Core
         {
             if (firstRender)
             {
-                if (Parent is WBCBase parent)
+                if (Parent is LNBCBase parent)
                 {
                     parent.AddChildNode(this);
                 } 
@@ -131,7 +131,7 @@ namespace LuanNiao.Blazor.Core
             });
         }
 
-        private void AddChildNode(WBCBase component)
+        private void AddChildNode(LNBCBase component)
         {
             this.Child.Add(component);
             component.Disposing += item =>

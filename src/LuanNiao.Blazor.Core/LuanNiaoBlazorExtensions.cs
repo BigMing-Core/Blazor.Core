@@ -6,7 +6,7 @@ using System.Text;
 
 namespace LuanNiao.Blazor.Core
 {
-    public static class WaveBlazorExtensions
+    public static class LuanNiaoBlazorExtensions
     {
         public static IServiceCollection AddLuanNiaoBlazor(this IServiceCollection services)
         { 

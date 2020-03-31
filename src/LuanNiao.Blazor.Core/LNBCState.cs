@@ -10,12 +10,12 @@ namespace LuanNiao.Blazor.Core
     /// <summary>
     /// You can get the component tree, this tree will initial with the first WaveComponent
     /// </summary>
-    public sealed class WBCState
+    public sealed class LNBCState
     {
 
-        private WBCState()
+        private LNBCState()
         { }
-        public static WBCState Instance = new WBCState();
+        public static LNBCState Instance = new LNBCState();
         private int _currentID = 0;
         public int GetID()
         {
