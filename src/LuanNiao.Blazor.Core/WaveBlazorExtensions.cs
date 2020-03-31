@@ -8,7 +8,7 @@ namespace LuanNiao.Blazor.Core
 {
     public static class WaveBlazorExtensions
     {
-        public static IServiceCollection AddWaveBlazor(this IServiceCollection services)
+        public static IServiceCollection AddLuanNiaoBlazor(this IServiceCollection services)
         { 
             services.AddScoped<WindowEventHub>();
             return services;
