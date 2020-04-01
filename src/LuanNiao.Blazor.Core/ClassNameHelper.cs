@@ -11,13 +11,22 @@ namespace LuanNiao.Blazor.Core
 
         public void SetStaticClass(string data)
         {
-            _htmlClassInfo = data;
+            _htmlClassInfo = data.Trim();
         }
 
 
         public void AddCustomClass(string data)
         {
-            _customClass.Add(data);
+            if (_customClass.Contains(data))
+            {
+                return;
+            }
+            _customClass.Add(data.Trim());
+        }
+
+        public void RemoveCustomClass(string data)
+        {
+            _customClass.Remove(data.Trim());
         }
 
 
@@ -32,7 +41,7 @@ namespace LuanNiao.Blazor.Core
             return string.Concat(_htmlClassInfo, " ", string.Join(" ", _customClass));
         }
 
-         
+
 
     }
 }
