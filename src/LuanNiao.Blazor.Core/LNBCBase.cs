@@ -55,6 +55,9 @@ namespace LuanNiao.Blazor.Core
         public event Action<LNBCBase> Disposing;
         public string IdentityKey => Guid.NewGuid().ToString("N", Thread.CurrentThread.CurrentCulture);
 
+
+        [Parameter]
+        public RenderFragment ChildContent { get; set; }
         [CascadingParameter]
         public ComponentBase Parent { get; set; }
 
