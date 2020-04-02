@@ -9,60 +9,65 @@ namespace LuanNiao.Blazor.Core
         private string _htmlClassInfo = string.Empty;
         private readonly List<string> _customClass = new List<string>();
 
-        public void SetStaticClass(string data)
+        public ClassNameHelper SetStaticClass(string data)
         {
             if (string.IsNullOrWhiteSpace(data))
             {
-                return;
+                return this;
             }
             _htmlClassInfo = data.Trim();
+            return this;
         }
 
 
-        public void AddCustomClass(string data)
+        public ClassNameHelper AddCustomClass(string data)
         {
             if (string.IsNullOrWhiteSpace(data) || _customClass.Contains(data))
             {
-                return;
+                return this;
             }
             _customClass.Add(data.Trim());
+            return this;
         }
 
-        public void AddCustomClass(string data, Func<bool> when)
+        public ClassNameHelper AddCustomClass(string data, Func<bool> when)
         {
             if (when == null || string.IsNullOrWhiteSpace(data) || _customClass.Contains(data))
             {
-                return;
+                return this;
             }
             try
             {
                 if (!when())
                 {
-                    return;
+                    return this;
                 }
             }
             catch (Exception)
             {
                 //todo use ETW handle this
-                return;
+                return this;
             }
 
             _customClass.Add(data.Trim());
+            return this;
         }
 
-        public void RemoveCustomClass(string data)
+        public ClassNameHelper RemoveCustomClass(string data)
         {
             if (string.IsNullOrWhiteSpace(data))
             {
-                return;
+                return this;
             }
             _customClass.Remove(data.Trim());
+            return this;
         }
 
 
-        public void Rest()
+        public ClassNameHelper Rest()
         {
-            _customClass.Clear();
+            _customClass.Clear(); 
+            return this;
         }
 
 

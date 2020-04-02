@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
 
 namespace LuanNiao.Blazor.Core
 {
@@ -53,7 +53,7 @@ namespace LuanNiao.Blazor.Core
         #endregion
 
         public event Action<LNBCBase> Disposing;
-        public string IdentityKey => Guid.NewGuid().ToString("N", Thread.CurrentThread.CurrentCulture);
+        public string IdentityKey = Guid.NewGuid().ToString("N", Thread.CurrentThread.CurrentCulture);
 
 
         [Parameter]
@@ -73,7 +73,7 @@ namespace LuanNiao.Blazor.Core
             }
             set
             {
-                _styleHelper.AddCustomStyle(value);
+                _styleHelper.AddCustomStyleStr(value);
             }
         }
 
@@ -118,7 +118,7 @@ namespace LuanNiao.Blazor.Core
                 if (Parent is LNBCBase parent)
                 {
                     parent.AddChildNode(this);
-                } 
+                }
             }
 
             base.OnAfterRender(firstRender);

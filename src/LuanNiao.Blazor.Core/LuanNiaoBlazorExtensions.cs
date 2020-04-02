@@ -9,8 +9,9 @@ namespace LuanNiao.Blazor.Core
     public static class LuanNiaoBlazorExtensions
     {
         public static IServiceCollection AddLuanNiaoBlazor(this IServiceCollection services)
-        { 
+        {
             services.AddScoped<WindowEventHub>();
+            services.AddScoped<ElementInfo>();
             return services;
         }
 

@@ -19,5 +19,18 @@
                 Width: window.innerWidth
             }
         };
+    },
+    GetElementClientRects: function (elementID) {
+        var elementRects = document.getElementById(elementID).getClientRects()[0];
+        return {
+            X: elementRects.x,
+            Y: elementRects.y,
+            Top: elementRects.top,
+            Bottom: elementRects.bottom,
+            Left: elementRects.left,
+            Right: elementRects.right,
+            Width: elementRects.width,
+            Height: elementRects.height
+        }
     }
 };
