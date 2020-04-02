@@ -11,21 +11,51 @@ namespace LuanNiao.Blazor.Core
 
         public void SetStaticClass(string data)
         {
+            if (string.IsNullOrWhiteSpace(data))
+            {
+                return;
+            }
             _htmlClassInfo = data.Trim();
         }
 
 
         public void AddCustomClass(string data)
         {
-            if (_customClass.Contains(data))
+            if (string.IsNullOrWhiteSpace(data) || _customClass.Contains(data))
             {
                 return;
             }
             _customClass.Add(data.Trim());
         }
 
+        public void AddCustomClass(string data, Func<bool> when)
+        {
+            if (when == null || string.IsNullOrWhiteSpace(data) || _customClass.Contains(data))
+            {
+                return;
+            }
+            try
+            {
+                if (!when())
+                {
+                    return;
+                }
+            }
+            catch (Exception)
+            {
+                //todo use ETW handle this
+                return;
+            }
+
+            _customClass.Add(data.Trim());
+        }
+
         public void RemoveCustomClass(string data)
         {
+            if (string.IsNullOrWhiteSpace(data))
+            {
+                return;
+            }
             _customClass.Remove(data.Trim());
         }
 
