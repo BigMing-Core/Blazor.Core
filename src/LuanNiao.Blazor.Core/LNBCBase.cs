@@ -58,8 +58,6 @@ namespace LuanNiao.Blazor.Core
 
         [Parameter]
         public RenderFragment ChildContent { get; set; }
-        [CascadingParameter]
-        public ComponentBase Parent { get; set; }
 
         [Inject]
         public WindowEventHub WindowEventHub { get; set; }
@@ -92,10 +90,7 @@ namespace LuanNiao.Blazor.Core
         }
 
 
-
-
-
-        public HashSet<ComponentBase> Child { get; set; } = new HashSet<ComponentBase>();
+ 
 
         public override bool Equals(object obj)
         {
@@ -105,24 +100,14 @@ namespace LuanNiao.Blazor.Core
             }
             return false;
         }
+
+
         public override int GetHashCode()
         {
             return this._createSequence;
         }
 
 
-        protected override void OnAfterRender(bool firstRender)
-        {
-            if (firstRender)
-            {
-                if (Parent is LNBCBase parent)
-                {
-                    parent.AddChildNode(this);
-                }
-            }
-
-            base.OnAfterRender(firstRender);
-        }
         protected void Flush()
         {
             InvokeAsync(() =>
@@ -134,14 +119,6 @@ namespace LuanNiao.Blazor.Core
             });
         }
 
-        private void AddChildNode(LNBCBase component)
-        {
-            this.Child.Add(component);
-            component.Disposing += item =>
-            {
-                Child.Remove(item);
-            };
-        }
 
 
 

@@ -95,7 +95,7 @@ namespace LuanNiao.Blazor.Core
                 }
             }
 
-            return _styleData;
+            return string.IsNullOrWhiteSpace(_styleData) ? null : _styleData;
         }
 
     }
