@@ -21,16 +21,42 @@
         };
     },
     GetElementClientRects: function (elementID) {
-        var elementRects = document.getElementById(elementID).getClientRects()[0];
+        var elementInfo = document.getElementById(elementID);
+        if (elementInfo == undefined) {
+            return {
+                X: 0,
+                Y: 0,
+                Top: 0,
+                Bottom: 0,
+                Left: 0,
+                Right: 0,
+                Width: 0,
+                Height: 0
+            }
+        }
+        var elementRects = elementInfo.getClientRects();
+        if (elementRects.length==0) {
+            return {
+                X: 0,
+                Y: 0,
+                Top: 0,
+                Bottom: 0,
+                Left: 0,
+                Right: 0,
+                Width: 0,
+                Height: 0
+            }
+        }
+        var rectInfo = elementRects[0];
         return {
-            X: elementRects.x,
-            Y: elementRects.y,
-            Top: elementRects.top,
-            Bottom: elementRects.bottom,
-            Left: elementRects.left,
-            Right: elementRects.right,
-            Width: elementRects.width,
-            Height: elementRects.height
+            X: rectInfo.x,
+            Y: rectInfo.y,
+            Top: rectInfo.top,
+            Bottom: rectInfo.bottom,
+            Left: rectInfo.left,
+            Right: rectInfo.right,
+            Width: rectInfo.width,
+            Height: rectInfo.height
         }
     }
 };

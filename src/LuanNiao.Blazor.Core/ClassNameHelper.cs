@@ -29,6 +29,27 @@ namespace LuanNiao.Blazor.Core
             _customClass.Add(data.Trim());
             return this;
         }
+        public ClassNameHelper TakeInverse(string data)
+        {
+            if ( string.IsNullOrWhiteSpace(data))
+            {
+                return this;
+            }
+            if (Contains(data))
+            {
+                this.RemoveCustomClass(data);
+            }
+            else
+            {
+                this.AddCustomClass(data);
+            }
+            return this;
+        }
+
+        public bool Contains(string data)
+        {
+            return this._customClass.Contains(data) || this._htmlClassInfo == data;
+        }
 
         public ClassNameHelper AddCustomClass(string data, Func<bool> when)
         {
@@ -49,10 +70,9 @@ namespace LuanNiao.Blazor.Core
                 return this;
             }
 
-            _customClass.Add(data.Trim());
+            AddCustomClass(data);
             return this;
         }
-
         public ClassNameHelper RemoveCustomClass(string data)
         {
             if (string.IsNullOrWhiteSpace(data))
@@ -62,11 +82,32 @@ namespace LuanNiao.Blazor.Core
             _customClass.Remove(data.Trim());
             return this;
         }
+        public ClassNameHelper RemoveCustomClass(string data, Func<bool> when)
+        {
+            if (when == null || string.IsNullOrWhiteSpace(data))
+            {
+                return this;
+            }
+            try
+            {
+                if (!when())
+                {
+                    return this;
+                }
+            }
+            catch (Exception)
+            {
+                //todo use ETW handle this
+                return this;
+            }
+            RemoveCustomClass(data);
+            return this;
+        }
 
 
         public ClassNameHelper Rest()
         {
-            _customClass.Clear(); 
+            _customClass.Clear();
             return this;
         }
 
