@@ -48,7 +48,7 @@ namespace LuanNiao.Blazor.Core
 
             if (_initialSize == null)
             {
-                _initialSize = await _jSRuntime.InvokeAsync<WindowSize>("WaveBlazor.GetWindowSize");
+                _initialSize = await _jSRuntime.InvokeAsync<WindowSize>("LuanNiaoBlazor.GetWindowSize");
             }
 
         }

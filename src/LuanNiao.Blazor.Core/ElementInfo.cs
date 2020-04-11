@@ -45,7 +45,7 @@ namespace LuanNiao.Blazor.Core
 
         public async Task<ElementRects> GetElementRectsByID(string id)
         {
-            return await _jSRuntime.InvokeAsync<ElementRects>("WaveBlazor.GetElementClientRects", id);
+            return await _jSRuntime.InvokeAsync<ElementRects>("LuanNiaoBlazor.GetElementClientRects", id);
         }
     }
 }

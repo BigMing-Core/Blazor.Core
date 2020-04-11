@@ -8,7 +8,7 @@ using System.Threading;
 namespace LuanNiao.Blazor.Core
 {
     /// <summary>
-    /// You can get the component tree, this tree will initial with the first WaveComponent
+    /// You can get the component tree, this tree will initial with the first LuanNiaoBlazor Component
     /// </summary>
     public sealed class LNBCState
     {

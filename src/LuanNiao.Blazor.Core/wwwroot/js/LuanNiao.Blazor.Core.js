@@ -1,4 +1,35 @@
-﻿var WaveBlazor = {
+﻿var LuanNiaoBlazor = {
+    Noop: function () {
+        console.log(1);
+    },
+    BlockClickEvent: function (e) {
+        var e = window.event || arguments.callee.caller.arguments[0];
+        e.preventDefault()
+    },
+    BindElementOnMouseEnter: function (elementID,methodName, callBack) {
+        var elementInfo = document.getElementById(elementID);
+        if (elementInfo != undefined) {
+            elementInfo.onmouseenter = () => {
+                callBack.invokeMethodAsync(methodName);
+            };
+        }
+    },
+    BindElementOnMouseOver: function (elementID, methodName, callBack) {
+        var elementInfo = document.getElementById(elementID);
+        if (elementInfo != undefined) {
+            elementInfo.onmouseover = () => {
+                callBack.invokeMethodAsync(methodName);
+            };
+        }
+    },
+    BindElementOnMouseOut: function (elementID, methodName, callBack) {
+        var elementInfo = document.getElementById(elementID);
+        if (elementInfo != undefined) {
+            elementInfo.onmouseout = () => {
+                callBack.invokeMethodAsync(methodName);
+            };
+        }
+    },
     WindowReSize: function (callBack) {
         window.addEventListener("resize", (args) => {
             callBack.invokeMethodAsync("Resize",
@@ -35,7 +66,7 @@
             }
         }
         var elementRects = elementInfo.getClientRects();
-        if (elementRects.length==0) {
+        if (elementRects.length == 0) {
             return {
                 X: 0,
                 Y: 0,

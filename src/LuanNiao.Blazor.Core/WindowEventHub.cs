@@ -53,7 +53,7 @@ namespace LuanNiao.Blazor.Core
         {
             if (!_inited)
             {
-                _jSRuntime.InvokeVoidAsync("WaveBlazor.WindowReSize", DotNetObjectReference.Create(this)); 
+                _jSRuntime.InvokeVoidAsync("LuanNiaoBlazor.WindowReSize", DotNetObjectReference.Create(this)); 
             }
             _inited = true;
         }

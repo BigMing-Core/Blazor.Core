@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace LuanNiao.Blazor.Core
 {
     /// <summary>
-    /// Wave's blazor component's base class
+    /// LuanNiao's blazor component's base class
     /// </summary>
     public abstract class LNBCBase : ComponentBase, IDisposable
     {
@@ -118,7 +118,7 @@ namespace LuanNiao.Blazor.Core
                 }
             });
         }
-
+    
 
 
 
