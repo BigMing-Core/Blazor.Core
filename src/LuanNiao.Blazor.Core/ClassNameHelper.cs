@@ -18,6 +18,18 @@ namespace LuanNiao.Blazor.Core
             _htmlClassInfo = data.Trim();
             return this;
         }
+        public ClassNameHelper SetStaticClass(string data,Func<bool> when)
+        {
+            if (string.IsNullOrWhiteSpace(data))
+            {
+                return this;
+            }
+            if (!when())
+            {
+                return this;
+            }
+            return SetStaticClass(data);
+        }
 
 
         public ClassNameHelper AddCustomClass(string data)
@@ -26,12 +38,15 @@ namespace LuanNiao.Blazor.Core
             {
                 return this;
             }
-            _customClass.Add(data.Trim());
+            lock (_customClass)
+            {
+                _customClass.Add(data.Trim());
+            }
             return this;
         }
         public ClassNameHelper TakeInverse(string data)
         {
-            if ( string.IsNullOrWhiteSpace(data))
+            if (string.IsNullOrWhiteSpace(data))
             {
                 return this;
             }
@@ -79,7 +94,10 @@ namespace LuanNiao.Blazor.Core
             {
                 return this;
             }
-            _customClass.Remove(data.Trim());
+            lock (_customClass)
+            {
+                _customClass.Remove(data.Trim());
+            }
             return this;
         }
         public ClassNameHelper RemoveCustomClass(string data, Func<bool> when)
@@ -107,14 +125,22 @@ namespace LuanNiao.Blazor.Core
 
         public ClassNameHelper Rest()
         {
-            _customClass.Clear();
+            lock (_customClass)
+            {
+                _customClass.Clear();
+            }
             return this;
         }
 
 
         public string Build()
         {
-            return string.Concat(_htmlClassInfo, " ", string.Join(" ", _customClass));
+            string res = "";
+            lock (_customClass)
+            {
+                res = string.Concat(_htmlClassInfo, " ", string.Join(" ", _customClass));
+            }
+            return res;
         }
 
 
