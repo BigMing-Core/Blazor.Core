@@ -3,14 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using LuanNiao.Blazor.Core.Common;
+using System.Threading.Tasks;
 
 namespace LuanNiao.Blazor.Core
 {
     public class WindowInfo
     {
         private IJSRuntime _jSRuntime = null;
-        private WindowSize _initialSize = null;
-        public WindowSize InitialSize { get => _initialSize; }
 
         #region Disposable pattern
         private bool _disposed = false;
@@ -43,14 +42,9 @@ namespace LuanNiao.Blazor.Core
             _jSRuntime = runtime;
         }
 
-        public async void Init()
+        public async Task<WindowSize> GetWindowSize()
         {
-
-            if (_initialSize == null)
-            {
-                _initialSize = await _jSRuntime.InvokeAsync<WindowSize>("LuanNiaoBlazor.GetWindowSize");
-            }
-
+            return await _jSRuntime.InvokeAsync<WindowSize>("LuanNiaoBlazor.GetWindowSize");
         }
     }
 }

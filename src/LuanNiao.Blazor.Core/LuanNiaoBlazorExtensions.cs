@@ -11,6 +11,7 @@ namespace LuanNiao.Blazor.Core
         public static IServiceCollection AddLuanNiaoBlazor(this IServiceCollection services)
         {
             services.AddScoped<WindowEventHub>();
+            services.AddScoped<WindowInfo>();
             services.AddScoped<ElementInfo>();
             return services;
         }

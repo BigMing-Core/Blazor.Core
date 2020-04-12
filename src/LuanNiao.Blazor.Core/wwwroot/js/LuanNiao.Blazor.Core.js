@@ -4,32 +4,16 @@
     },
     BlockClickEvent: function (e) {
         var e = window.event || arguments.callee.caller.arguments[0];
-        e.preventDefault()
+        e.preventDefault();
     },
-    BindElementOnMouseEnter: function (elementID,methodName, callBack) {
+    BindElementEvent: function (eventName, elementID, methodName, dNetInstance) {
         var elementInfo = document.getElementById(elementID);
         if (elementInfo != undefined) {
-            elementInfo.onmouseenter = () => {
-                callBack.invokeMethodAsync(methodName);
-            };
+            elementInfo.addEventListener(eventName, () => {
+                dNetInstance.invokeMethodAsync(methodName);
+            });
         }
-    },
-    BindElementOnMouseOver: function (elementID, methodName, callBack) {
-        var elementInfo = document.getElementById(elementID);
-        if (elementInfo != undefined) {
-            elementInfo.onmouseover = () => {
-                callBack.invokeMethodAsync(methodName);
-            };
-        }
-    },
-    BindElementOnMouseOut: function (elementID, methodName, callBack) {
-        var elementInfo = document.getElementById(elementID);
-        if (elementInfo != undefined) {
-            elementInfo.onmouseout = () => {
-                callBack.invokeMethodAsync(methodName);
-            };
-        }
-    },
+    }, 
     WindowReSize: function (callBack) {
         window.addEventListener("resize", (args) => {
             callBack.invokeMethodAsync("Resize",

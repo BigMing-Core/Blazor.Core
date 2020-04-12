@@ -60,7 +60,13 @@ namespace LuanNiao.Blazor.Core
         public RenderFragment ChildContent { get; set; }
 
         [Inject]
-        public WindowEventHub WindowEventHub { get; set; }
+        protected WindowEventHub WindowEventHub { get; set; }
+
+        [Inject]
+        protected ElementInfo ElementInfo { get; set; }
+
+        [Inject]
+        protected WindowInfo WindowInfo { get; set; }
 
         [Parameter]
         public virtual string CStyle
@@ -90,7 +96,7 @@ namespace LuanNiao.Blazor.Core
         }
 
 
- 
+
 
         public override bool Equals(object obj)
         {
@@ -118,7 +124,7 @@ namespace LuanNiao.Blazor.Core
                 }
             });
         }
-    
+
 
 
 
