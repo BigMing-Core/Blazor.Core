@@ -18,9 +18,9 @@ namespace LuanNiao.Blazor.Core
             _htmlClassInfo = data.Trim();
             return this;
         }
-        public ClassNameHelper SetStaticClass(string data,Func<bool> when)
+        public ClassNameHelper SetStaticClass(string data, Func<bool> when)
         {
-            if (string.IsNullOrWhiteSpace(data))
+            if (string.IsNullOrWhiteSpace(data) || when == null)
             {
                 return this;
             }
@@ -80,8 +80,7 @@ namespace LuanNiao.Blazor.Core
                 }
             }
             catch (Exception)
-            {
-                //todo use ETW handle this
+            { 
                 return this;
             }
 

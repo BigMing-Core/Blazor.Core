@@ -1,0 +1,16 @@
+﻿using LuanNiao.Blazor.Core.Common.Enums;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace LuanNiao.Blazor.Core.Common
+{
+
+
+    public struct WindowEvent
+    {
+        public EventType EventType { get; set; }
+        public MouseEvent MouseEvent { get; set; }
+    }
+}

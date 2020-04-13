@@ -38,7 +38,7 @@ namespace LuanNiao.Blazor.Core
                 return;
             }
             _disposed = true;
-            Disposing?.Invoke(this);
+            Disposing?.Invoke();
             if (flag)
             {
                 _styleHelper = null;
@@ -52,7 +52,7 @@ namespace LuanNiao.Blazor.Core
         }
         #endregion
 
-        public event Action<LNBCBase> Disposing;
+        public event Action Disposing;
         public string IdentityKey = Guid.NewGuid().ToString("N", Thread.CurrentThread.CurrentCulture);
 
 

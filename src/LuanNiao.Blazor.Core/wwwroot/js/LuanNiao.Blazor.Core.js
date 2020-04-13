@@ -1,19 +1,49 @@
 ﻿var LuanNiaoBlazor = {
-    Noop: function () {
-        console.log(1);
-    },
+    MousePosition: function (event,mouseEvent) {
+        if (event.pageX || event.pageY) {
+            mouseEvent.X = event.pageX;
+            mouseEvent.Y = event.pageY;
+
+        }
+        else {
+            mouseEvent.X = event.clientX + document.body.scrollLeft - document.body.clientLeft;
+            mouseEvent.Y = event.clientY + document.body.scrollTop - document.body.clientTop;
+        } 
+    }, 
     BlockClickEvent: function (e) {
         var e = window.event || arguments.callee.caller.arguments[0];
         e.preventDefault();
     },
-    BindElementEvent: function (eventName, elementID, methodName, dNetInstance) {
+    BindElementEvent: function (eventName, elementID, methodName, dNetInstance, isPreventDefault) {
         var elementInfo = document.getElementById(elementID);
         if (elementInfo != undefined) {
-            elementInfo.addEventListener(eventName, () => {
-                dNetInstance.invokeMethodAsync(methodName);
+            elementInfo.addEventListener(eventName, (e) => {
+
+                if (isPreventDefault) {
+                    e.preventDefault();
+                }
+                var eventInfo = {
+                    EventType: 0
+                };
+                if (e.constructor == MouseEvent) {
+                    eventInfo.EventType = eventInfo.EventType | 1;
+                    eventInfo.MouseEvent = {
+                        Alt: e.altKey,
+                        Button: e.button,
+                        Buttons: e.buttons,
+                        ClientX: e.clientX,
+                        ClientY: e.clientY,
+                        Control: e.ctrlKey,
+                        Meta: e.metaKey,
+                        Shift: e.shiftKey
+                    };
+                    LuanNiaoBlazor.MousePosition(e, eventInfo.MouseEvent);
+                    
+                }
+                dNetInstance.invokeMethodAsync(methodName, eventInfo);
             });
         }
-    }, 
+    },
     WindowReSize: function (callBack) {
         window.addEventListener("resize", (args) => {
             callBack.invokeMethodAsync("Resize",
