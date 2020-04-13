@@ -1,5 +1,5 @@
 ﻿var LuanNiaoBlazor = {
-    MousePosition: function (event,mouseEvent) {
+    MousePosition: function (event, mouseEvent) {
         if (event.pageX || event.pageY) {
             mouseEvent.X = event.pageX;
             mouseEvent.Y = event.pageY;
@@ -8,8 +8,8 @@
         else {
             mouseEvent.X = event.clientX + document.body.scrollLeft - document.body.clientLeft;
             mouseEvent.Y = event.clientY + document.body.scrollTop - document.body.clientTop;
-        } 
-    }, 
+        }
+    },
     BlockClickEvent: function (e) {
         var e = window.event || arguments.callee.caller.arguments[0];
         e.preventDefault();
@@ -38,7 +38,7 @@
                         Shift: e.shiftKey
                     };
                     LuanNiaoBlazor.MousePosition(e, eventInfo.MouseEvent);
-                    
+
                 }
                 dNetInstance.invokeMethodAsync(methodName, eventInfo);
             });
@@ -101,7 +101,11 @@
             Left: rectInfo.left,
             Right: rectInfo.right,
             Width: rectInfo.width,
-            Height: rectInfo.height
+            Height: rectInfo.height,
+            OffetTop: elementInfo.offsetTop,
+            OffsetLeft: elementInfo.offsetLeft,
+            OffsetHeight: elementInfo.offsetHeight,
+            OffsetWidth: elementInfo.offsetWidth
         }
     }
 };

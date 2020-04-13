@@ -15,5 +15,9 @@ namespace LuanNiao.Blazor.Core.Common
         public double Right { get; set; }
         public double Width { get; set; }
         public double Height { get; set; }
+        public double OffetTop { get; set; }
+        public double OffsetLeft { get; set; }
+        public double OffsetHeight { get; set; }
+        public double OffsetWidth { get; set; }
     }
 }
