@@ -80,13 +80,37 @@ namespace LuanNiao.Blazor.Core
                 }
             }
             catch (Exception)
-            { 
+            {
                 return this;
             }
 
             AddCustomClass(data);
             return this;
         }
+
+        /// <summary>
+        /// add or remove this class
+        /// </summary>
+        /// <param name="className">the class name you want to handle</param>
+        /// <param name="condition">the condition, when true we will add the class name, otherwise remove</param>
+        /// <returns></returns>
+        public ClassNameHelper AddOrRemove(string className, Func<bool> condition)
+        {
+            if (condition == null || string.IsNullOrWhiteSpace(className))
+            {
+                return this;
+            }
+            if (condition())
+            {
+                this.AddCustomClass(className);
+            }
+            else
+            {
+                this.RemoveCustomClass(className);
+            }
+            return this;
+        }
+
         public ClassNameHelper RemoveCustomClass(string data)
         {
             if (string.IsNullOrWhiteSpace(data))
