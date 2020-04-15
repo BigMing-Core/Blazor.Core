@@ -198,7 +198,7 @@ namespace LuanNiao.Blazor.Core
                 _styleData = string.Concat(_htmlStyle, string.Join(";", _customStyleStr));
                 foreach (var item in this._customStyle)
                 {
-                    _styleData = string.Concat(_styleData, $"{item.Key}:{item.Value};");
+                    _styleData = string.Concat(_styleData,";", $"{item.Key}:{item.Value};");
                 }
             }
 
