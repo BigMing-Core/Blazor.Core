@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using LuanNiao.Blazor.Core.Common;
 
 namespace LuanNiao.Blazor.Core
 {
     public class OriginalStyleHelper
     {
+
+
         private string _htmlStyle = string.Empty;
         private readonly Dictionary<string, string> _customStyle = new Dictionary<string, string>();
         private readonly List<string> _customStyleStr = new List<string>();
@@ -52,9 +54,114 @@ namespace LuanNiao.Blazor.Core
             return this;
         }
 
+
+        public OriginalStyleHelper AddDiffCustomStyle(StyleItem whenSuccess, StyleItem whenFailed, Func<bool> condition)
+        {
+            if (whenSuccess == null || whenFailed == null || whenSuccess.IsNullOrWhiteSpace() || whenFailed.IsNullOrWhiteSpace() || condition == null)
+            {
+                return this;
+            }
+            if (condition())
+            {
+                AddCustomStyle(whenSuccess);
+            }
+            else
+            {
+                AddCustomStyle(whenFailed);
+            }
+
+            return this;
+        }
+
+
+        public OriginalStyleHelper AddDiffCustomStyle(StyleItem[] whenSuccess, StyleItem[] whenFailed, Func<bool> condition)
+        {
+            if (whenSuccess == null || whenFailed == null || condition == null)
+            {
+                return this;
+            }
+            if (condition())
+            {
+                for (int i = 0; i < whenSuccess.Length; i++)
+                {
+                    AddCustomStyle(whenSuccess[i]);
+                }
+                
+            }
+            else
+            {
+                for (int i = 0; i < whenFailed.Length; i++)
+                {
+                    AddCustomStyle(whenFailed[i]);
+                }
+            }
+
+            return this;
+        }
+
+
+        public OriginalStyleHelper AddOrUpdateDiffCustomStyle(StyleItem whenSuccess, StyleItem whenFailed, Func<bool> condition)
+        {
+            if (whenSuccess == null || whenFailed == null || whenSuccess.IsNullOrWhiteSpace() || whenFailed.IsNullOrWhiteSpace() || condition == null)
+            {
+                return this;
+            }
+            if (condition())
+            {
+                AddOrUpdateCustomStyle(whenSuccess);
+            }
+            else
+            {
+                AddOrUpdateCustomStyle(whenFailed);
+            }
+
+            return this;
+        }
+
+
+        public OriginalStyleHelper AddOrUpdateCustomStyle(StyleItem item)
+        {
+            if (item == null || item.IsNullOrWhiteSpace())
+            {
+                return this;
+            }
+            if (_customStyle.ContainsKey(item.StyleName))
+            {
+                _customStyle[item.StyleName] = item.Value;
+            }
+            else
+            {
+                AddCustomStyle(item);
+            }
+            return this;
+        }
+
+
+
+        public OriginalStyleHelper AddCustomStyle(StyleItem item)
+        {
+            if (item == null || item.IsNullOrWhiteSpace())
+            {
+                return this;
+            }
+
+            return this.AddCustomStyle(item.StyleName, item.Value);
+        }
+
+        public OriginalStyleHelper RemoveCustomStyle(StyleItem item)
+        {
+            if (item == null || item.IsNullOrWhiteSpace())
+            {
+                return this;
+            }
+
+            return this.RemoveCustomStyle(item.StyleName);
+        }
+
+
         public OriginalStyleHelper AddCustomStyle(string name, string value, Func<bool> when)
         {
-            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(value))
+            if (when == null || string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(value))
             {
                 return this;
             }
