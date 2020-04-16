@@ -12,5 +12,6 @@ namespace LuanNiao.Blazor.Core.Common
     {
         public EventType EventType { get; set; }
         public MouseEvent MouseEvent { get; set; }
+        public WindowSize CurrentWindowInfo { get; set; }
     }
 }

@@ -14,11 +14,13 @@
         var e = window.event || arguments.callee.caller.arguments[0];
         e.preventDefault();
     },
-    BindElementEvent: function (eventName, elementID, methodName, dNetInstance, isPreventDefault) {
+    BindElementEvent: function (eventName, elementID, methodName, dNetInstance, isPreventDefault, async) {        
         var elementInfo = document.getElementById(elementID);
+        if (elementID == "body") {
+            elementInfo = document.getElementsByTagName("body")[0];
+        }
         if (elementInfo != undefined) {
             elementInfo.addEventListener(eventName, (e) => {
-
                 if (isPreventDefault) {
                     e.preventDefault();
                 }
@@ -37,10 +39,24 @@
                         Meta: e.metaKey,
                         Shift: e.shiftKey
                     };
+                    eventInfo.CurrentWindowInfo = {
+                        InnerSize:
+                        {
+                            Height: window.innerHeight,
+                            Width: window.innerWidth
+                        }
+                    }
                     LuanNiaoBlazor.MousePosition(e, eventInfo.MouseEvent);
 
                 }
-                dNetInstance.invokeMethodAsync(methodName, eventInfo);
+                if (async) {
+
+                    dNetInstance.invokeMethodAsync(methodName, eventInfo);
+                }
+                else {
+
+                    dNetInstance.invokeMethod(methodName, eventInfo);
+                }
             });
         }
     },

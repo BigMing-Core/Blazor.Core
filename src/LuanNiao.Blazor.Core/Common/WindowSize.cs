@@ -4,9 +4,9 @@ using System.Text;
 
 namespace LuanNiao.Blazor.Core.Common
 {
-    public class WindowSize
+    public struct WindowSize
     {
-        public class InnerSizeInfo
+        public struct InnerSizeInfo
         {
             public int Height { get; set; }
             public int Width { get; set; }
