@@ -86,7 +86,7 @@ namespace LuanNiao.Blazor.Core
                 {
                     AddCustomStyle(whenSuccess[i]);
                 }
-                
+
             }
             else
             {
@@ -191,6 +191,11 @@ namespace LuanNiao.Blazor.Core
         }
 
 
+        public bool HasCustomStyle()
+        {
+            return _customStyle.Count != 0 || _customStyleStr.Count != 0;
+        }
+
         public string Build()
         {
             if (string.IsNullOrWhiteSpace(_styleData))
@@ -198,7 +203,7 @@ namespace LuanNiao.Blazor.Core
                 _styleData = string.Concat(_htmlStyle, string.Join(";", _customStyleStr));
                 foreach (var item in this._customStyle)
                 {
-                    _styleData = string.Concat(_styleData,";", $"{item.Key}:{item.Value};");
+                    _styleData = string.Concat(_styleData, ";", $"{item.Key}:{item.Value};");
                 }
             }
 
