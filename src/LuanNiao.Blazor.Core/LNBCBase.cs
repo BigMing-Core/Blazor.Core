@@ -56,6 +56,9 @@ namespace LuanNiao.Blazor.Core
         public string IdentityKey = Guid.NewGuid().ToString("N", Thread.CurrentThread.CurrentCulture);
 
 
+        public OriginalStyleHelper StyleHelper { get => _styleHelper; }
+        public ClassNameHelper ClassHelper { get => _classHelper; }
+
         [Parameter]
         public RenderFragment ChildContent { get; set; }
 
@@ -114,7 +117,7 @@ namespace LuanNiao.Blazor.Core
         }
 
 
-        protected void Flush()
+        public void Flush()
         {
             InvokeAsync(() =>
             {

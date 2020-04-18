@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using LuanNiao.Blazor.Core.Common;
 
 namespace LuanNiao.Blazor.Core
@@ -10,7 +11,6 @@ namespace LuanNiao.Blazor.Core
 
         private string _htmlStyle = string.Empty;
         private readonly Dictionary<string, string> _customStyle = new Dictionary<string, string>();
-        private readonly List<string> _customStyleStr = new List<string>();
         private string _styleData = null;
 
         public OriginalStyleHelper SetStaticStyleData(string data)
@@ -26,12 +26,21 @@ namespace LuanNiao.Blazor.Core
 
         public OriginalStyleHelper AddCustomStyleStr(string styleStr)
         {
-            if (string.IsNullOrWhiteSpace(styleStr) || _customStyleStr.Contains(styleStr))
+            if (string.IsNullOrWhiteSpace(styleStr))
             {
                 return this;
             }
 
-            _customStyleStr.Add(styleStr);
+            var styleItems = styleStr.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < styleItems.Length; i++)
+            {
+                var styleItem = styleItems[i].Split(":", StringSplitOptions.RemoveEmptyEntries);
+                if (styleItem.Length == 2)
+                {
+                    this.AddCustomStyle(styleItem[0], styleItem[1]);
+                }
+            }
+
             _styleData = null;
             return this;
         }
@@ -193,14 +202,13 @@ namespace LuanNiao.Blazor.Core
 
         public bool HasCustomStyle()
         {
-            return _customStyle.Count != 0 || _customStyleStr.Count != 0;
+            return _customStyle.Count != 0;
         }
 
         public string Build()
         {
             if (string.IsNullOrWhiteSpace(_styleData))
             {
-                _styleData = string.Concat(_htmlStyle, string.Join(";", _customStyleStr));
                 foreach (var item in this._customStyle)
                 {
                     _styleData = string.Concat(_styleData, ";", $"{item.Key}:{item.Value};");
