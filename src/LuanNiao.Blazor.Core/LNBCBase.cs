@@ -57,10 +57,11 @@ namespace LuanNiao.Blazor.Core
 
 
         public OriginalStyleHelper StyleHelper { get => _styleHelper; }
-        public ClassNameHelper ClassHelper { get => _classHelper; }
+        public ClassNameHelper ClassHelper { get => _classHelper; } 
 
         [Parameter]
         public RenderFragment ChildContent { get; set; }
+
 
         [Inject]
         protected WindowEventHub WindowEventHub { get; set; }

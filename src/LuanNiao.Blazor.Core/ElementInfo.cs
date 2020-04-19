@@ -50,6 +50,8 @@ namespace LuanNiao.Blazor.Core
             return await _jSRuntime.InvokeAsync<ElementRects>("LuanNiaoBlazor.GetElementClientRects", id);
         }
 
+         
+
         public async void BindClickEvent<T>(string elementID, string callBackMethodName, T instance, bool isPreventDefault = false,bool async=true) where T : LNBCBase
         {
             if (instance == null)
@@ -67,6 +69,8 @@ namespace LuanNiao.Blazor.Core
             }
             await BindEvent("mouseover", elementID, callBackMethodName, instance, isPreventDefault, async);
         }
+
+        
 
         public async void BindMouseEnterEvent<T>(string elementID, string callBackMethodName, T instance, bool isPreventDefault = false, bool async = true) where T : LNBCBase
         {

@@ -77,7 +77,14 @@ namespace LuanNiao.Blazor.Core
         {
             if (!_languageSource.ContainsKey(culture))
             {
-                _languageSource.Add(culture, System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(jsonData));
+                try
+                {
+                    _languageSource.Add(culture, System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(jsonData));
+                }
+                catch
+                {
+
+                }
             }
         }
     }
