@@ -103,14 +103,10 @@ namespace LuanNiao.Blazor.Core
                 var langInfo = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(jsonData);
                 foreach (var item in langInfo)
                 {
-                    if (_languageSource[culture].ContainsKey(item.Key))
-                    {
-                        _languageSource[culture][item.Key] = item.Value;
-                    }
-                    else
+                    if (!_languageSource[culture].ContainsKey(item.Key))
                     {
                         _languageSource[culture].Add(item.Key, item.Value);
-                    }
+                    } 
                 }
             }
         }
