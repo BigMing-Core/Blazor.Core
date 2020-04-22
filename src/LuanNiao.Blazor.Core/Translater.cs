@@ -32,6 +32,10 @@ namespace LuanNiao.Blazor.Core
         public static event Action<string> CultureChanged;
         public static void AddLanguageFile(SourceItem[] sources)
         {
+            if (sources == null)
+            {
+                return;
+            }
             foreach (var item in sources)
             {
                 switch (item.ItemType)
@@ -67,6 +71,7 @@ namespace LuanNiao.Blazor.Core
         }
 
 
+
         private static void LoadResourceFile(string culture, string fileUrl)
         {
             string resultstring = "";
@@ -91,6 +96,21 @@ namespace LuanNiao.Blazor.Core
                 catch
                 {
 
+                }
+            }
+            else
+            {
+                var langInfo = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(jsonData);
+                foreach (var item in langInfo)
+                {
+                    if (_languageSource[culture].ContainsKey(item.Key))
+                    {
+                        _languageSource[culture][item.Key] = item.Value;
+                    }
+                    else
+                    {
+                        _languageSource[culture].Add(item.Key, item.Value);
+                    }
                 }
             }
         }
