@@ -70,6 +70,15 @@ namespace LuanNiao.Blazor.Core
             return _languageSource[_currentCulture][key];
         }
 
+        public static string Tr(Func<string, string> action)
+        {
+            if (action!=null)
+            {
+                return action(_currentCulture);
+            }
+            return "";
+        }
+
 
 
         private static void LoadResourceFile(string culture, string fileUrl)
