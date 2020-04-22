@@ -85,13 +85,15 @@ namespace LuanNiao.Blazor.Core
             }
             AddToCultureData(culture, resultstring);
         }
-        private static void AddToCultureData(string culture, string jsonData)
+        public static void AddToCultureData(string culture, string jsonData) => AddToCultureData(culture, System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(jsonData));
+
+        public static void AddToCultureData(string culture, Dictionary<string, string> langData)
         {
             if (!_languageSource.ContainsKey(culture))
             {
                 try
                 {
-                    _languageSource.Add(culture, System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(jsonData));
+                    _languageSource.Add(culture, langData);
                 }
                 catch
                 {
@@ -100,13 +102,12 @@ namespace LuanNiao.Blazor.Core
             }
             else
             {
-                var langInfo = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(jsonData);
-                foreach (var item in langInfo)
+                foreach (var item in langData)
                 {
                     if (!_languageSource[culture].ContainsKey(item.Key))
                     {
                         _languageSource[culture].Add(item.Key, item.Value);
-                    } 
+                    }
                 }
             }
         }
