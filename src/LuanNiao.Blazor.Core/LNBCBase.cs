@@ -18,6 +18,7 @@ namespace LuanNiao.Blazor.Core
 
         private readonly int _createSequence = 0;
         private bool _disposed = false;
+        protected bool _hasFirstRender = false;
         protected OriginalStyleHelper _styleHelper = new OriginalStyleHelper();
         protected ClassNameHelper _classHelper = new ClassNameHelper();
 
@@ -42,6 +43,11 @@ namespace LuanNiao.Blazor.Core
             if (flag)
             {
                 _styleHelper = null;
+                _classHelper = null;
+                ChildContent = null;
+                WindowEventHub.Dispose();
+                ElementInfo.Dispose();
+                WindowInfo.Dispose();
             }
         }
 
@@ -57,7 +63,7 @@ namespace LuanNiao.Blazor.Core
 
 
         public OriginalStyleHelper StyleHelper { get => _styleHelper; }
-        public ClassNameHelper ClassHelper { get => _classHelper; } 
+        public ClassNameHelper ClassHelper { get => _classHelper; }
 
         [Parameter]
         public RenderFragment ChildContent { get; set; }
@@ -101,6 +107,12 @@ namespace LuanNiao.Blazor.Core
 
 
 
+
+        protected override void OnAfterRender(bool firstRender)
+        {
+            _hasFirstRender = firstRender;
+            base.OnAfterRender(firstRender);
+        }
 
         public override bool Equals(object obj)
         {
