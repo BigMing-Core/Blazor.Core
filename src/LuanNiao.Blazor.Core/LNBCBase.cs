@@ -110,7 +110,7 @@ namespace LuanNiao.Blazor.Core
 
         protected override void OnAfterRender(bool firstRender)
         {
-            _hasFirstRender = firstRender;
+            _hasFirstRender = true;
             base.OnAfterRender(firstRender);
         }
 
