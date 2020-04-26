@@ -45,9 +45,10 @@ namespace LuanNiao.Blazor.Core
                 _styleHelper = null;
                 _classHelper = null;
                 ChildContent = null;
-                WindowEventHub.Dispose();
-                ElementInfo.Dispose();
-                WindowInfo.Dispose();
+                WindowEventHub = null;
+                ElementInfo = null;
+                WindowInfo = null; 
+                Navigator = null;
             }
         }
 
@@ -68,6 +69,8 @@ namespace LuanNiao.Blazor.Core
         [Parameter]
         public RenderFragment ChildContent { get; set; }
 
+        [Inject]
+        protected Navigator Navigator { get; set; }
 
         [Inject]
         protected WindowEventHub WindowEventHub { get; set; }

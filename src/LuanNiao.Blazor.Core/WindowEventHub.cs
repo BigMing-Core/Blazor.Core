@@ -9,54 +9,18 @@ using LuanNiao.Blazor.Core.Common;
 
 namespace LuanNiao.Blazor.Core
 {
-    public sealed class WindowEventHub : IDisposable
+    public sealed class WindowEventHub
     {
-      
-        private bool _inited = false;
-        private IJSRuntime _jSRuntime = null;
+        private readonly IJSRuntime _jSRuntime = null;
 
 
-        #region Disposable pattern
-        private bool _disposed = false;
-        private void Dispose(bool flage)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-            _disposed = true;
-            if (flage)
-            {
-                _jSRuntime = null;
-            }
-
-
-        }
-        ~WindowEventHub()
-        {
-            Dispose(false);
-        }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        #endregion
         public WindowEventHub(IJSRuntime runtime)
         {
             _jSRuntime = runtime;
-            Init(); 
+            _jSRuntime.InvokeVoidAsync("LuanNiaoBlazor.WindowReSize", DotNetObjectReference.Create(this));
         }
 
 
-        private void Init()
-        {
-            if (!_inited)
-            {
-                _jSRuntime.InvokeVoidAsync("LuanNiaoBlazor.WindowReSize", DotNetObjectReference.Create(this)); 
-            }
-            _inited = true;
-        }
 
         [JSInvokable]
         public void Resize(WindowSize windowSize)

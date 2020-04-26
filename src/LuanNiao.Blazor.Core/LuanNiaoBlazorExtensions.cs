@@ -13,6 +13,7 @@ namespace LuanNiao.Blazor.Core
             services.AddScoped<WindowEventHub>();
             services.AddScoped<WindowInfo>();
             services.AddScoped<ElementInfo>();
+            services.AddScoped<Navigator>();
             return services;
         }
 

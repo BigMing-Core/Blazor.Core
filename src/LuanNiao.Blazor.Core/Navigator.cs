@@ -2,26 +2,23 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using LuanNiao.Blazor.Core.Common;
 using System.Threading.Tasks;
 
 namespace LuanNiao.Blazor.Core
 {
-    public class WindowInfo
+    public class Navigator
     {
         private readonly IJSRuntime _jSRuntime = null;
- 
-        public WindowInfo(IJSRuntime runtime)
+
+        public Navigator(IJSRuntime runtime)
         {
             _jSRuntime = runtime;
         }
 
 
-        
-        public async Task<WindowSize> GetWindowSize()
+        public ValueTask Copy(string text)
         {
-            return await _jSRuntime.InvokeAsync<WindowSize>("LuanNiaoBlazor.GetWindowSize");
+            return _jSRuntime.InvokeVoidAsync("LuanNiaoBlazor.Copy", text);
         }
-
     }
 }

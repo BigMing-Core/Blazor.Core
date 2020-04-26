@@ -9,36 +9,7 @@ namespace LuanNiao.Blazor.Core
 {
     public class ElementInfo
     {
-        private IJSRuntime _jSRuntime = null;
-
-        #region Disposable pattern
-        private bool _disposed = false;
-        private void Dispose(bool flage)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-            _disposed = true;
-            if (flage)
-            {
-                _jSRuntime = null;
-            }
-
-
-        }
-        ~ElementInfo()
-        {
-            Dispose(false);
-        }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        #endregion
-
-
+        private readonly IJSRuntime _jSRuntime = null;
 
         public ElementInfo(IJSRuntime runtime)
         {
@@ -50,9 +21,9 @@ namespace LuanNiao.Blazor.Core
             return await _jSRuntime.InvokeAsync<ElementRects>("LuanNiaoBlazor.GetElementClientRects", id);
         }
 
-         
 
-        public async void BindClickEvent<T>(string elementID, string callBackMethodName, T instance, bool isPreventDefault = false,bool async=true) where T : LNBCBase
+
+        public async void BindClickEvent<T>(string elementID, string callBackMethodName, T instance, bool isPreventDefault = false, bool async = true) where T : LNBCBase
         {
             if (instance == null)
             {
@@ -70,7 +41,7 @@ namespace LuanNiao.Blazor.Core
             await BindEvent("mouseover", elementID, callBackMethodName, instance, isPreventDefault, async);
         }
 
-        
+
 
         public async void BindMouseEnterEvent<T>(string elementID, string callBackMethodName, T instance, bool isPreventDefault = false, bool async = true) where T : LNBCBase
         {
@@ -126,7 +97,7 @@ namespace LuanNiao.Blazor.Core
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "dispose this when the instance disposing..")]
-        private async Task BindEvent<T>(string htmlEvemtName, string elementID, string callBackMethodName, T instance, bool isPreventDefault,bool async) where T : LNBCBase
+        private async Task BindEvent<T>(string htmlEvemtName, string elementID, string callBackMethodName, T instance, bool isPreventDefault, bool async) where T : LNBCBase
         {
             var jsInstance = DotNetObjectReference.Create(instance);
 

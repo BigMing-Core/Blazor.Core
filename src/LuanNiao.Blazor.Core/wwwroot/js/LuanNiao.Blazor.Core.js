@@ -10,6 +10,14 @@
             mouseEvent.Y = event.clientY + document.body.scrollTop - document.body.clientTop;
         }
     },
+    Copy: function (text) {
+        try {
+            navigator.clipboard.writeText(text);
+        } catch (e) {
+            console.error("Ant Design - Text could not be copied.");
+            console.log(e);
+        }
+    },
     BlockClickEvent: function (e) {
         var e = window.event || arguments.callee.caller.arguments[0];
         e.preventDefault();
