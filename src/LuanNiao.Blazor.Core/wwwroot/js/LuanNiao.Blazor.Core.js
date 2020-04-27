@@ -13,16 +13,15 @@
     Copy: function (text) {
         try {
             navigator.clipboard.writeText(text);
-        } catch (e) {
-            console.error("Ant Design - Text could not be copied.");
-            console.log(e);
+        } catch   {
+
         }
     },
     BlockClickEvent: function (e) {
         var e = window.event || arguments.callee.caller.arguments[0];
         e.preventDefault();
     },
-    BindElementEvent: function (eventName, elementID, methodName, dNetInstance, isPreventDefault, async) {        
+    BindElementEvent: function (eventName, elementID, methodName, dNetInstance, isPreventDefault, async) {
         var elementInfo = document.getElementById(elementID);
         if (elementID == "body") {
             elementInfo = document.getElementsByTagName("body")[0];
