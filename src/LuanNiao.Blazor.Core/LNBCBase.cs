@@ -77,6 +77,8 @@ namespace LuanNiao.Blazor.Core
 
         [Inject]
         protected ElementInfo ElementInfo { get; set; }
+        [Inject]
+        protected BodyEventHub BodyEventHub { get; set; }
 
         [Inject]
         protected WindowInfo WindowInfo { get; set; }

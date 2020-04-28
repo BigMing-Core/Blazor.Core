@@ -97,12 +97,12 @@ namespace LuanNiao.Blazor.Core
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "dispose this when the instance disposing..")]
-        private async Task BindEvent<T>(string htmlEvemtName, string elementID, string callBackMethodName, T instance, bool isPreventDefault, bool async) where T : LNBCBase
+        private async Task BindEvent<T>(string htmlEventName, string elementID, string callBackMethodName, T instance, bool isPreventDefault, bool async) where T : LNBCBase
         {
             var jsInstance = DotNetObjectReference.Create(instance);
 
             await _jSRuntime.InvokeVoidAsync("LuanNiaoBlazor.BindElementEvent",
-                htmlEvemtName,
+                htmlEventName,
                  elementID,
                  callBackMethodName,
                  jsInstance,
