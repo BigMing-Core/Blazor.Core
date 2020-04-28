@@ -6,12 +6,11 @@ namespace LuanNiao.Blazor.Core.Common
 {
     public class WindowSize
     {
-        public class InnerSizeInfo
-        {
-            public int Height { get; set; }
-            public int Width { get; set; }
-        }
-        public InnerSizeInfo InnerSize { get; set; }
+
+        public int OuterHeight { get; set; }
+        public int OuterWidth { get; set; }
+        public int InnerHeight { get; set; }
+        public int InnerWidth { get; set; }
     }
 
 }

@@ -44,11 +44,11 @@
                         Shift: e.shiftKey
                     };
                     eventInfo.CurrentWindowInfo = {
-                        InnerSize:
-                        {
-                            Height: window.innerHeight,
-                            Width: window.innerWidth
-                        }
+
+                        InnerHeight: window.innerHeight,
+                        InnerWidth: window.innerWidth,
+                        OuterWidth: window.outerWidth,
+                        OuterHeight: window.outerHeight 
                     }
                     LuanNiaoBlazor.MousePosition(e, eventInfo.MouseEvent);
 
@@ -86,11 +86,11 @@
                     Shift: e.shiftKey
                 };
                 eventInfo.CurrentWindowInfo = {
-                    InnerSize:
-                    {
-                        Height: window.innerHeight,
-                        Width: window.innerWidth
-                    }
+
+                    InnerHeight: window.innerHeight,
+                    InnerWidth: window.innerWidth,
+                    OuterWidth: window.outerWidth,
+                    OuterHeight: window.outerHeight 
                 }
                 LuanNiaoBlazor.MousePosition(e, eventInfo.MouseEvent);
 
@@ -110,21 +110,20 @@
         window.addEventListener("resize", (args) => {
             callBack.invokeMethodAsync("Resize",
                 {
-                    InnerSize:
-                    {
-                        Height: window.innerHeight,
-                        Width: window.innerWidth
-                    }
+                    InnerHeight: window.innerHeight,
+                    InnerWidth: window.innerWidth,
+                    OuterWidth: window.outerWidth,
+                    OuterHeight: window.outerHeight 
                 })
         })
     },
     GetWindowSize: function () {
         return {
-            InnerSize:
-            {
-                Height: window.innerHeight,
-                Width: window.innerWidth
-            }
+
+            InnerHeight: window.innerHeight,
+            InnerWidth: window.innerWidth,
+            OuterWidth: window.outerWidth,
+            OuterHeight: window.outerHeight 
         };
     },
     GetElementClientRects: function (elementID) {
@@ -164,7 +163,7 @@
             Right: rectInfo.right,
             Width: rectInfo.width,
             Height: rectInfo.height,
-            OffetTop: elementInfo.offsetTop,
+            OffsetTop: elementInfo.offsetTop,
             OffsetLeft: elementInfo.offsetLeft,
             OffsetHeight: elementInfo.offsetHeight,
             OffsetWidth: elementInfo.offsetWidth
