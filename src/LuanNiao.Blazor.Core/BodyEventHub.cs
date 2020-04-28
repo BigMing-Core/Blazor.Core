@@ -73,7 +73,7 @@ namespace LuanNiao.Blazor.Core
         [JSInvokable]
         public void MouseUpCB(WindowEvent e)
         {
-            MouseUp?.Invoke(e);
+            MouseUp?.Invoke(e); 
         }
         [JSInvokable]
         public void MousEnterCB(WindowEvent e)

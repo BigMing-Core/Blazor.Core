@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LuanNiao.Blazor.Core.Common
 {
-    public struct MouseEvent
+    public class MouseEvent
     {
         public bool Alt { get; set; }
         public MouseEventButton Button { get; set; }

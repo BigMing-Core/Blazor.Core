@@ -8,7 +8,7 @@ namespace LuanNiao.Blazor.Core.Common
 {
 
 
-    public struct WindowEvent
+    public class WindowEvent
     {
         public EventType EventType { get; set; }
         public MouseEvent MouseEvent { get; set; }
