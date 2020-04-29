@@ -96,6 +96,75 @@ namespace LuanNiao.Blazor.Core
             await BindEvent("contextmenu", elementID, callBackMethodName, instance, isPreventDefault, async);
         }
 
+
+        public async void BindFocusEvent<T>(string elementID, string callBackMethodName, T instance, bool isPreventDefault = false, bool async = true) where T : LNBCBase
+        {
+            if (instance == null)
+            {
+                return;
+            }
+            await BindEvent("focus", elementID, callBackMethodName, instance, isPreventDefault, async);
+        }
+
+        public async void BindFocusinEvent<T>(string elementID, string callBackMethodName, T instance, bool isPreventDefault = false, bool async = true) where T : LNBCBase
+        {
+            if (instance == null)
+            {
+                return;
+            }
+            await BindEvent("focusin", elementID, callBackMethodName, instance, isPreventDefault, async);
+        }
+
+        public async void BindFocusoutEvent<T>(string elementID, string callBackMethodName, T instance, bool isPreventDefault = false, bool async = true) where T : LNBCBase
+        {
+            if (instance == null)
+            {
+                return;
+            }
+            await BindEvent("focusout", elementID, callBackMethodName, instance, isPreventDefault, async);
+        }
+
+        public async void BindInputEvent<T>(string elementID, string callBackMethodName, T instance, bool isPreventDefault = false, bool async = true) where T : LNBCBase
+        {
+            if (instance == null)
+            {
+                return;
+            }
+            await BindEvent("input", elementID, callBackMethodName, instance, isPreventDefault, async);
+        }
+
+        public async void BindResetEvent<T>(string elementID, string callBackMethodName, T instance, bool isPreventDefault = false, bool async = true) where T : LNBCBase
+        {
+            if (instance == null)
+            {
+                return;
+            }
+            await BindEvent("reset", elementID, callBackMethodName, instance, isPreventDefault, async);
+        }
+        public async void BindSearchEvent<T>(string elementID, string callBackMethodName, T instance, bool isPreventDefault = false, bool async = true) where T : LNBCBase
+        {
+            if (instance == null)
+            {
+                return;
+            }
+            await BindEvent("search", elementID, callBackMethodName, instance, isPreventDefault, async);
+        }
+        public async void BindBlurEvent<T>(string elementID, string callBackMethodName, T instance, bool isPreventDefault = false, bool async = true) where T : LNBCBase
+        {
+            if (instance == null)
+            {
+                return;
+            }
+            await BindEvent("blur", elementID, callBackMethodName, instance, isPreventDefault, async);
+        }
+        public async void BindChangeEvent<T>(string elementID, string callBackMethodName, T instance, bool isPreventDefault = false, bool async = true) where T : LNBCBase
+        {
+            if (instance == null)
+            {
+                return;
+            }
+            await BindEvent("change", elementID, callBackMethodName, instance, isPreventDefault, async);
+        }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "dispose this when the instance disposing..")]
         private async Task BindEvent<T>(string htmlEventName, string elementID, string callBackMethodName, T instance, bool isPreventDefault, bool async) where T : LNBCBase
         {
