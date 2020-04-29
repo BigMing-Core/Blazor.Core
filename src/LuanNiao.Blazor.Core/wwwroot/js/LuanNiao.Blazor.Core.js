@@ -17,6 +17,13 @@
 
         }
     },
+    GetElementValue: function (id) {
+        var elementInfo = document.getElementById(elementID);
+        if (elementInfo == undefined) {
+            return "";
+        }
+        return elementInfo.value;
+    },
     BlockClickEvent: function (e) {
         var e = window.event || arguments.callee.caller.arguments[0];
         e.preventDefault();

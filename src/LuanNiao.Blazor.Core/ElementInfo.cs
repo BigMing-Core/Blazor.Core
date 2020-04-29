@@ -21,6 +21,11 @@ namespace LuanNiao.Blazor.Core
             return await _jSRuntime.InvokeAsync<ElementRects>("LuanNiaoBlazor.GetElementClientRects", id);
         }
 
+        public async Task<string> GetElementValue(string id)
+        {
+            return await _jSRuntime.InvokeAsync<string>("LuanNiaoBlazor.GetElementValue", id);
+        }
+
 
 
         public async void BindClickEvent<T>(string elementID, string callBackMethodName, T instance, bool isPreventDefault = false, bool async = true) where T : LNBCBase
