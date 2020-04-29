@@ -17,7 +17,7 @@
 
         }
     },
-    GetElementValue: function (id) {
+    GetElementValue: function (elementID) {
         var elementInfo = document.getElementById(elementID);
         if (elementInfo == undefined) {
             return "";
@@ -55,18 +55,36 @@
                         InnerHeight: window.innerHeight,
                         InnerWidth: window.innerWidth,
                         OuterWidth: window.outerWidth,
-                        OuterHeight: window.outerHeight 
+                        OuterHeight: window.outerHeight
                     }
                     LuanNiaoBlazor.MousePosition(e, eventInfo.MouseEvent);
 
                 }
-                if (async) {
 
+                dNetInstance.invokeMethodAsync(methodName, eventInfo);
+
+            });
+        }
+    },
+    BindElementKeyBoardEvent: function (eventName, elementID, methodName, dNetInstance, allowKeyList) {
+        var elementInfo = document.getElementById(elementID);
+        if (elementInfo != undefined) {
+            elementInfo.addEventListener(eventName, async (e) => {
+
+                if (e.constructor == KeyboardEvent && allowKeyList.includes(e.keyCode)) {
+                    var eventInfo = {
+                    };
+                    eventInfo = {
+                        Key: e.key,
+                        KeyCode: e.keyCode,
+                        Code: e.code,
+                        CharCode: e.charCode,
+                        Location: e.location,
+                        ShiftKey: e.shiftKey,
+                        CtrlKey: e.ctrlKey,
+                        AltKey: e.altKey
+                    };
                     dNetInstance.invokeMethodAsync(methodName, eventInfo);
-                }
-                else {
-
-                    dNetInstance.invokeMethod(methodName, eventInfo);
                 }
             });
         }
@@ -97,7 +115,7 @@
                     InnerHeight: window.innerHeight,
                     InnerWidth: window.innerWidth,
                     OuterWidth: window.outerWidth,
-                    OuterHeight: window.outerHeight 
+                    OuterHeight: window.outerHeight
                 }
                 LuanNiaoBlazor.MousePosition(e, eventInfo.MouseEvent);
 
@@ -120,7 +138,7 @@
                     InnerHeight: window.innerHeight,
                     InnerWidth: window.innerWidth,
                     OuterWidth: window.outerWidth,
-                    OuterHeight: window.outerHeight 
+                    OuterHeight: window.outerHeight
                 })
         })
     },
@@ -130,7 +148,7 @@
             InnerHeight: window.innerHeight,
             InnerWidth: window.innerWidth,
             OuterWidth: window.outerWidth,
-            OuterHeight: window.outerHeight 
+            OuterHeight: window.outerHeight
         };
     },
     GetElementClientRects: function (elementID) {
