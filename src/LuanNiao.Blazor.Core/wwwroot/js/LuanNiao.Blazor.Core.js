@@ -41,6 +41,7 @@
     BlockClickEvent: function (e) {
         var e = window.event || arguments.callee.caller.arguments[0];
         e.preventDefault();
+        e.stopPropagation();
     },
     BindElementEvent: function (eventName, elementID, methodName, dNetInstance, isPreventDefault, async) {
         var elementInfo = document.getElementById(elementID);
