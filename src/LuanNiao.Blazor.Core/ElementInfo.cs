@@ -25,6 +25,10 @@ namespace LuanNiao.Blazor.Core
         {
             return await _jSRuntime.InvokeAsync<string>("LuanNiaoBlazor.GetElementValue", id);
         }
+        public async void SetElementValue(string id, string value)
+        {
+            await _jSRuntime.InvokeAsync<string>("LuanNiaoBlazor.SetElementValue", id, value);
+        }
 
         public async Task<string> GetElementInnerText(string id)
         {

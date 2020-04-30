@@ -24,6 +24,13 @@
         }
         return elementInfo.value;
     },
+    SetElementValue: function (elementID,value) {
+        var elementInfo = document.getElementById(elementID);
+        if (elementInfo == undefined) {
+            return "";
+        }
+        return elementInfo.value = value;
+    },
     GetElementInnerText: function (elementID) {
         var elementInfo = document.getElementById(elementID);
         if (elementInfo == undefined) {
