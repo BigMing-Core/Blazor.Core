@@ -146,7 +146,16 @@ namespace LuanNiao.Blazor.Core
             });
         }
 
-
+        public async Task FlushAsync()
+        {
+           await InvokeAsync(() =>
+            {
+                if (!_disposed)
+                {
+                    StateHasChanged();
+                }
+            });
+        }
 
 
     }
