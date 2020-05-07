@@ -26,8 +26,8 @@ namespace LuanNiao.Blazor.Core
 
 
         private readonly static Dictionary<string, Dictionary<string, string>> _languageSource = new Dictionary<string, Dictionary<string, string>>();
-        private static string _currentCulture = null;
-
+        
+        public static string CurrentCulture { get; private set; }
 
         public static event Action<string> CultureChanged;
         public static void AddLanguageFile(SourceItem[] sources)
@@ -57,24 +57,24 @@ namespace LuanNiao.Blazor.Core
 
         public static void ConvertTo(string culture)
         {
-            _currentCulture = culture;
-            CultureChanged?.Invoke(_currentCulture);
+            CurrentCulture = culture;
+            CultureChanged?.Invoke(CurrentCulture);
         }
 
         public static string Tr(string key)
         {
-            if (_currentCulture is null || !_languageSource.ContainsKey(_currentCulture) || !_languageSource[_currentCulture].ContainsKey(key))
+            if (CurrentCulture is null || !_languageSource.ContainsKey(CurrentCulture) || !_languageSource[CurrentCulture].ContainsKey(key))
             {
                 return key;
             }
-            return _languageSource[_currentCulture][key];
+            return _languageSource[CurrentCulture][key];
         }
 
         public static string Tr(Func<string, string> action)
         {
             if (action!=null)
             {
-                return action(_currentCulture);
+                return action(CurrentCulture);
             }
             return "";
         }
