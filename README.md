@@ -1,4 +1,4 @@
-### This is common class, our blazor component prooject is [LuanNiao](https://github.com/luanniao/Blazor.Component.Antd)
+
 <div align="center" >
   <img src="https://resource.luanniao.club/commonres/icon.png">
   <h3>LuanNiao Blazor Component-- ANTD</h3>
@@ -20,5 +20,6 @@ We will not synchronize the official CSS and corresponding implementations like 
 We are currently locked in antd v4.0.4.
 <Br/>
 
- [English ReadMe](https://github.com/luanniao/Blazor.Component.Antd/blob/master/README-EN.md) [中文描述](https://github.com/luanniao/Blazor.Component.Antd/blob/master/README-CN.MD)
-
+ [English ReadMe](/README-EN.md) [中文描述](/README-CN.MD)
+ <br/>
+  ***[Global Demo Site](https://doc.luanniao.club)***
