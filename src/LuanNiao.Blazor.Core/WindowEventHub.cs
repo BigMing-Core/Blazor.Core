@@ -28,12 +28,7 @@ namespace LuanNiao.Blazor.Core
             Resized?.Invoke(windowSize);
         }
 
-
-
-
         public event Action<WindowSize> Resized;
-
-
     }
 
 }
