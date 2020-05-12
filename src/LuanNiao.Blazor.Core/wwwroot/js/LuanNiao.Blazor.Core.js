@@ -43,12 +43,15 @@
         e.preventDefault();
         e.stopPropagation();
     },
-    BindElementEvent: function (eventName, elementID, methodName, dNetInstance, isPreventDefault, async) {
+    BindElementEvent: function (eventName, elementID, methodName, dNetInstance, isPreventDefault, isStopPropagation) {
         var elementInfo = document.getElementById(elementID);
         if (elementInfo != undefined) {
             elementInfo.addEventListener(eventName, (e) => {
                 if (isPreventDefault) {
                     e.preventDefault();
+                }
+                if (isStopPropagation) {
+                    e.stopPropagation();
                 }
                 var eventInfo = {
                     EventType: 0
