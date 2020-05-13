@@ -40,7 +40,6 @@ namespace LuanNiao.Blazor.Core
                     this.AddCustomStyle(styleItem[0], styleItem[1]);
                 }
             }
-
             _styleData = null;
             return this;
         }
@@ -78,7 +77,7 @@ namespace LuanNiao.Blazor.Core
             {
                 AddCustomStyle(whenFailed);
             }
-
+            _styleData = null;
             return this;
         }
 
@@ -104,6 +103,7 @@ namespace LuanNiao.Blazor.Core
                     AddCustomStyle(whenFailed[i]);
                 }
             }
+            _styleData = null;
 
             return this;
         }
@@ -123,6 +123,7 @@ namespace LuanNiao.Blazor.Core
             {
                 AddOrUpdateCustomStyle(whenFailed);
             }
+            _styleData = null;
 
             return this;
         }
@@ -142,6 +143,7 @@ namespace LuanNiao.Blazor.Core
             {
                 AddCustomStyle(item);
             }
+            _styleData = null;
             return this;
         }
 
