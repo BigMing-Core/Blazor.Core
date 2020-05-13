@@ -160,6 +160,15 @@
                 })
         })
     },
+    WindowScroll: function (callBack) {
+        window.addEventListener("scroll", (e) => { 
+            callBack.invokeMethodAsync("Scroll", {
+                PageXOffset:e.pageXOffset,
+                PageYOffset:e.pageYOffset
+            });
+
+        });
+    },
     GetWindowSize: function () {
         return {
 

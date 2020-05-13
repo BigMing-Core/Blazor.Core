@@ -18,9 +18,15 @@ namespace LuanNiao.Blazor.Core
         {
             _jSRuntime = runtime;
             _jSRuntime.InvokeVoidAsync("LuanNiaoBlazor.WindowReSize", DotNetObjectReference.Create(this));
+            _jSRuntime.InvokeVoidAsync("LuanNiaoBlazor.WindowScroll", DotNetObjectReference.Create(this));
         }
 
 
+        [JSInvokable]
+        public void Scroll(WindowScrollEvent windowScrollEvent)
+        {
+            Scrolled?.Invoke(windowScrollEvent);
+        }
 
         [JSInvokable]
         public void Resize(WindowSize windowSize)
@@ -29,6 +35,7 @@ namespace LuanNiao.Blazor.Core
         }
 
         public event Action<WindowSize> Resized;
+        public event Action<WindowScrollEvent> Scrolled;
     }
 
 }
