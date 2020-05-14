@@ -13,6 +13,9 @@ namespace LuanNiao.Blazor.Core
         [JSInvokable]
         public  void OnClick(WindowEvent windowEvent)
         {
+#if DEBUG
+            Console.WriteLine($"{_elementID}:{nameof(OnClick)}");
+#endif
             Click?.Invoke(windowEvent);
         }
 
@@ -20,6 +23,9 @@ namespace LuanNiao.Blazor.Core
         [JSInvokable]
         public  void OnMouseOver(WindowEvent windowEvent)
         {
+#if DEBUG
+            Console.WriteLine($"{_elementID}:{nameof(OnMouseOver)}");
+#endif
             MouseOver?.Invoke(windowEvent);
         }
 

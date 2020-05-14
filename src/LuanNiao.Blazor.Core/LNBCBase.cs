@@ -70,6 +70,9 @@ namespace LuanNiao.Blazor.Core
         public RenderFragment ChildContent { get; set; }
 
         [Inject]
+        protected LNElementEventHub ElementEventHub { get; set; }
+
+        [Inject]
         protected Navigator Navigator { get; set; }
 
         [Inject]
