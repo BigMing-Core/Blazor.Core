@@ -224,8 +224,8 @@
     RegistElementEventHub: function (elementID, dNetInstance) {
         var elementInfo = document.getElementById(elementID);
         if (elementInfo != undefined) {
-            RegistElementEvent(elementInfo, "click", dNetInstance, "OnClick");
-            RegistElementEvent(elementInfo, "mouseover", dNetInstance, "OnMouseOver");
+            LuanNiaoBlazor.RegistElementEvent(elementInfo, "click", dNetInstance, "OnClick");
+            LuanNiaoBlazor.RegistElementEvent(elementInfo, "mouseover", dNetInstance, "OnMouseOver");
         }
     },
     RegistElementEvent: function (element, eventName, dNetInstance,methodName) {
