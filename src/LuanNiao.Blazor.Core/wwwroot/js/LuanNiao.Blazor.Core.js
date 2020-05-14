@@ -220,5 +220,83 @@
             OffsetHeight: elementInfo.offsetHeight,
             OffsetWidth: elementInfo.offsetWidth
         }
+    },
+    RegistElementEventHub: function (elementID, dNetInstance) {
+        var elementInfo = document.getElementById(elementID);
+        if (elementInfo != undefined) {
+            RegistElementEvent(elementInfo, "click", dNetInstance, "OnClick");
+            RegistElementEvent(elementInfo, "mouseover", dNetInstance, "OnMouseOver");
+        }
+    },
+    RegistElementEvent: function (element, eventName, dNetInstance,methodName) {
+        element.addEventListener(eventName, (e) => { 
+            var eventInfo = {
+                EventType: 0
+            };
+            if (e.constructor == MouseEvent) {
+                eventInfo.EventType = eventInfo.EventType | 1;
+                eventInfo.MouseEvent = {
+                    Alt: e.altKey,
+                    Button: e.button,
+                    Buttons: e.buttons,
+                    ClientX: e.clientX,
+                    ClientY: e.clientY,
+                    Control: e.ctrlKey,
+                    Meta: e.metaKey,
+                    Shift: e.shiftKey
+                }; 
+                LuanNiaoBlazor.MousePosition(e, eventInfo.MouseEvent);
+
+            }
+            dNetInstance.invokeMethodAsync(methodName, eventInfo);
+        });
+    },
+    RegistElementFormEvent: function (element, eventName, dNetInstance, methodName) {
+        element.addEventListener(eventName, (e) => {          
+            var eventInfo = {
+                EventType: 0
+            };
+            if (e.constructor == MouseEvent) {
+                eventInfo.EventType = eventInfo.EventType | 1;
+                eventInfo.MouseEvent = {
+                    Alt: e.altKey,
+                    Button: e.button,
+                    Buttons: e.buttons,
+                    ClientX: e.clientX,
+                    ClientY: e.clientY,
+                    Control: e.ctrlKey,
+                    Meta: e.metaKey,
+                    Shift: e.shiftKey
+                }; 
+                LuanNiaoBlazor.MousePosition(e, eventInfo.MouseEvent);
+
+            }
+            dNetInstance.invokeMethodAsync(methodName, eventInfo);
+        });
+    },
+    RegistElementKeyboardEvent: function (element, eventName, dNetInstance, methodName) {
+        element.addEventListener(eventName, async (e) => {
+
+            if (e.constructor == KeyboardEvent && allowKeyList.includes(e.keyCode)) {
+                var eventInfo = {
+                };
+                eventInfo = {
+                    Key: e.key,
+                    KeyCode: e.keyCode,
+                    Code: e.code,
+                    CharCode: e.charCode,
+                    Location: e.location,
+                    ShiftKey: e.shiftKey,
+                    CtrlKey: e.ctrlKey,
+                    AltKey: e.altKey
+                };
+                dNetInstance.invokeMethodAsync(methodName, eventInfo);
+            }
+        });
     }
+    
 };
+
+
+
+
