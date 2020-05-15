@@ -1,101 +1,81 @@
-﻿using LuanNiao.Blazor.Core.Common;
-using LuanNiao.Blazor.Core.ElementEventHub.Attributes;
-using Microsoft.JSInterop;
+﻿using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
 
 namespace LuanNiao.Blazor.Core.ElementEventHub
 {
-    public sealed class LNElementInstance : IDisposable
+    /// <summary>
+    /// Use to bind the html element instance
+    /// </summary>
+    public sealed partial class LNElementInstance : IDisposable
     {
-        /// <summary>
-        /// Method info use to invoke
-        /// </summary>
-        public MethodInfo Method { get; private set; }
-        /// <summary>
-        /// this method's parameter
-        /// </summary>
-        private readonly ParameterInfo[] _parameters;
         /// <summary>
         /// JSRT
         /// </summary>
         private readonly IJSRuntime _jSRuntime = null;
         /// <summary>
+        /// target element id
+        /// </summary>
+        internal readonly string _elementID;
+        private readonly Action<string> _disposingCB;
+        /// <summary>
         /// this instance's js ref
         /// </summary>
         private readonly DotNetObjectReference<LNElementInstance> _dotNetObjectReference;
-        private readonly object[] _data = new object[1];
-        /// <summary>
-        /// current attribute info
-        /// </summary>
-        public readonly LNElementEventAttribute Attribute;
-        /// <summary>
-        /// all LNBCBase instance, use to invoke
-        /// </summary>
-        private readonly List<LNBCBase> _targetInstance = new List<LNBCBase>();
 
+        private readonly Dictionary<int, LNBCBase> _instancePool = new Dictionary<int, LNBCBase>();
+        private readonly Dictionary<int, LNElementEvent> _clickEventPool = new Dictionary<int, LNElementEvent>();
+        private readonly Dictionary<int, LNElementEvent> _onMouseOverEventPool = new Dictionary<int, LNElementEvent>();
+        private readonly Dictionary<int, LNElementEvent> _onMouseEnterEventPool = new Dictionary<int, LNElementEvent>();
+        private readonly Dictionary<int, LNElementEvent> _onMouseDownEventPool = new Dictionary<int, LNElementEvent>();
+        private readonly Dictionary<int, LNElementEvent> _onMouseUpEventPool = new Dictionary<int, LNElementEvent>();
+        private readonly Dictionary<int, LNElementEvent> _onMouseMoveEventPool = new Dictionary<int, LNElementEvent>();
+        private readonly Dictionary<int, LNElementEvent> _onMouseOutEventPool = new Dictionary<int, LNElementEvent>();
+        private readonly Dictionary<int, LNElementEvent> _onContextMenuEventPool = new Dictionary<int, LNElementEvent>();
 
-        public LNElementInstance(MethodInfo methodInfo, LNElementEventAttribute attribute, IJSRuntime runtime)
+        public LNElementInstance(IJSRuntime runtime, string elementID, Action<string> disposingCB)
         {
-            Attribute = attribute;
-            Method = methodInfo;
-            _parameters = Method.GetParameters();
-            _jSRuntime = runtime;
             _dotNetObjectReference = DotNetObjectReference.Create(this);
-            _jSRuntime.InvokeVoidAsync("LuanNiaoBlazor.BindElementMouseEvent",
-               "click",
-                attribute._elementName,
-                nameof(MouseEvent),
-                _dotNetObjectReference);
-            //todo the lementID must be is a parameter
+            _disposingCB = disposingCB;
+            _jSRuntime = runtime;
+            _elementID = elementID;
+            _jSRuntime.InvokeVoidAsync("LuanNiaoBlazor.RegistElementEventHub", elementID, _dotNetObjectReference);
         }
 
-        [JSInvokable]
-        public void MouseEvent(MouseEvent mouseEvent)
+        public void Remove(int id)
         {
-
-            if (_parameters.Length == 0)
-            {
-                _targetInstance.ForEach(item =>
-                {
-                    Method.Invoke(item, null);
-                });
-            }
-            else if (_parameters.Length == 1 && _parameters[0].ParameterType == EventTypeInfos.MouseEvent)
-            {
-                _data[0] = mouseEvent;
-                _targetInstance.ForEach(item =>
-                {
-                    Method.Invoke(item, _data);
-                });
-            }
-        }
-
-        public void AddInstance(LNBCBase instance)
-        {
-            lock (_targetInstance)
-            {
-                _targetInstance.Add(instance);
-            }
-            instance.Disposing += () => {
-                lock (_targetInstance)
-                {
-                    _targetInstance.Remove(instance);
-                }
-            };
-        }
-        public void RemoveInstance(LNBCBase instance)
-        {
-            lock (_targetInstance)
-            {
-                _targetInstance.Remove(instance);
-            }
+#if DEBUG
+            Console.WriteLine($"Remove{id}");
+#endif
+            _clickEventPool.Remove(id);
+            _instancePool.Remove(id);
+            _onMouseEnterEventPool.Remove(id);
+            _onMouseOverEventPool.Remove(id);
+            _onMouseDownEventPool.Remove(id);
+            _onMouseUpEventPool.Remove(id);
+            _onMouseMoveEventPool.Remove(id);
+            _onMouseOutEventPool.Remove(id);
+            _onContextMenuEventPool.Remove(id);
         }
 
         public void Dispose()
         {
+#if DEBUG
+            Console.WriteLine($"{_elementID}:{nameof(Dispose)}");
+#endif
+            _disposingCB.Invoke(_elementID);
+            lock (this)
+            {
+                _clickEventPool.Clear();
+                _instancePool.Clear();
+                _onMouseDownEventPool.Clear();
+                _onMouseEnterEventPool.Clear();
+                _onMouseOverEventPool.Clear();
+                _onMouseUpEventPool.Clear();
+                _onMouseMoveEventPool.Clear();
+                _onMouseOutEventPool.Clear();
+                _onContextMenuEventPool.Clear();
+            }
             _dotNetObjectReference.Dispose();
         }
     }

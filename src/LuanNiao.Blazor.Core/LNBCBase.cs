@@ -22,6 +22,7 @@ namespace LuanNiao.Blazor.Core
         protected OriginalStyleHelper _styleHelper = new OriginalStyleHelper();
         protected ClassNameHelper _classHelper = new ClassNameHelper();
 
+        public bool Disposed { get => _disposed; }
 
         #region disposable pattern
         public LNBCBase()

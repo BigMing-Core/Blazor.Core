@@ -227,6 +227,12 @@
             LuanNiaoBlazor.RegistElementRemovedEvent(elementInfo, dNetInstance, "OnElementRemoved");
             LuanNiaoBlazor.RegistElementEvent(elementInfo, "click", dNetInstance, "OnClick");
             LuanNiaoBlazor.RegistElementEvent(elementInfo, "mouseover", dNetInstance, "OnMouseOver");
+            LuanNiaoBlazor.RegistElementEvent(elementInfo, "mouseenter", dNetInstance, "OnMouseEnter");
+            LuanNiaoBlazor.RegistElementEvent(elementInfo, "mousedown", dNetInstance, "OnMouseDown");
+            LuanNiaoBlazor.RegistElementEvent(elementInfo, "mouseup", dNetInstance, "OnMouseUp");
+            LuanNiaoBlazor.RegistElementEvent(elementInfo, "mousemove", dNetInstance, "OnMouseMove");
+            LuanNiaoBlazor.RegistElementEvent(elementInfo, "mouseout", dNetInstance, "OnMouseOut");
+            LuanNiaoBlazor.RegistElementEvent(elementInfo, "contextmenu", dNetInstance, "OnContextMenu");
         }
     },
     RegistElementEvent: function (element, eventName, dNetInstance, methodName) {
@@ -297,7 +303,7 @@
     },
     RegistElementRemovedEvent: function (element, dNetInstance, methodName) {
         element.addEventListener("DOMNodeRemoved", async (e) => {
-            dNetInstance.invokeMethodAsync(methodName, eventInfo);
+            dNetInstance.invokeMethodAsync(methodName);
         });
     },
     BindElementMouseEvent: function (eventName, elementID, methodName, dNetInstance) {
