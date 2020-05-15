@@ -299,6 +299,24 @@
         element.addEventListener("DOMNodeRemoved", async (e) => {
             dNetInstance.invokeMethodAsync(methodName, eventInfo);
         });
+    },
+    BindElementMouseEvent: function (eventName, elementID, methodName, dNetInstance) {
+        var elementInfo = document.getElementById(elementID);
+        if (elementInfo != undefined) {
+            elementInfo.addEventListener(eventName, (e) => {
+                var eventInfo = {
+                    Alt: e.altKey,
+                    Button: e.button,
+                    Buttons: e.buttons,
+                    ClientX: e.clientX,
+                    ClientY: e.clientY,
+                    Control: e.ctrlKey,
+                    Meta: e.metaKey,
+                    Shift: e.shiftKey
+                };
+                dNetInstance.invokeMethodAsync(methodName, eventInfo);
+            });
+        }
     }
 
 };

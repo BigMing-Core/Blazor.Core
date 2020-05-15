@@ -47,7 +47,7 @@ namespace LuanNiao.Blazor.Core
                 ChildContent = null;
                 WindowEventHub = null;
                 ElementInfo = null;
-                WindowInfo = null; 
+                WindowInfo = null;
                 Navigator = null;
             }
         }
@@ -61,8 +61,10 @@ namespace LuanNiao.Blazor.Core
 
         public event Action Disposing;
         public string IdentityKey = Guid.NewGuid().ToString("N", Thread.CurrentThread.CurrentCulture);
-
-
+        /// <summary>
+        /// this component's create sequence, can use to identity key
+        /// </summary>
+        internal int CreateSequence { get => _createSequence; }
         public OriginalStyleHelper StyleHelper { get => _styleHelper; }
         public ClassNameHelper ClassHelper { get => _classHelper; }
 
@@ -151,13 +153,13 @@ namespace LuanNiao.Blazor.Core
 
         public async Task FlushAsync()
         {
-           await InvokeAsync(() =>
-            {
-                if (!_disposed)
-                {
-                    StateHasChanged();
-                }
-            });
+            await InvokeAsync(() =>
+             {
+                 if (!_disposed)
+                 {
+                     StateHasChanged();
+                 }
+             });
         }
 
 
