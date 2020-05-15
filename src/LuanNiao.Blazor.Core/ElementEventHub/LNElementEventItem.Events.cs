@@ -11,21 +11,26 @@ namespace LuanNiao.Blazor.Core
     {
         public event Action<WindowEvent> Click;
         [JSInvokable]
-        public  void OnClick(WindowEvent windowEvent)
+        public void OnClick(WindowEvent windowEvent)
         {
 
             foreach (var item in _clickMethodPool)
             {
-                //_instancePool
-                //
-                //item.Value
+                item.Value.ForEach(mItem =>
+                {
+                    mItem.TargetInstance.ForEach(instance =>
+                    {
+                        mItem.Method.Invoke(instance, null);
+                    });
+
+                });
             }
             Click?.Invoke(windowEvent);
         }
 
         public event Action<WindowEvent> MouseOver;
         [JSInvokable]
-        public  void OnMouseOver(WindowEvent windowEvent)
+        public void OnMouseOver(WindowEvent windowEvent)
         {
             MouseOver?.Invoke(windowEvent);
         }
