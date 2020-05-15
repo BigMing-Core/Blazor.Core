@@ -233,6 +233,14 @@
             LuanNiaoBlazor.RegistElementEvent(elementInfo, "mousemove", dNetInstance, "OnMouseMove");
             LuanNiaoBlazor.RegistElementEvent(elementInfo, "mouseout", dNetInstance, "OnMouseOut");
             LuanNiaoBlazor.RegistElementEvent(elementInfo, "contextmenu", dNetInstance, "OnContextMenu");
+
+
+            LuanNiaoBlazor.RegistElementEvent(elementInfo, "focus", dNetInstance, "OnFocus");
+            LuanNiaoBlazor.RegistElementEvent(elementInfo, "focusin", dNetInstance, "OnFocusIn");
+            LuanNiaoBlazor.RegistElementEvent(elementInfo, "focusout", dNetInstance, "OnFocusOut");
+            LuanNiaoBlazor.RegistElementEvent(elementInfo, "input", dNetInstance, "OnInput"); 
+            LuanNiaoBlazor.RegistElementEvent(elementInfo, "blur", dNetInstance, "OnBlur");
+            LuanNiaoBlazor.RegistElementEvent(elementInfo, "change", dNetInstance, "OnChange");
         }
     },
     RegistElementEvent: function (element, eventName, dNetInstance, methodName) {

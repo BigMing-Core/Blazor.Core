@@ -25,6 +25,7 @@ namespace LuanNiao.Blazor.Core.ElementEventHub
 
         private readonly Dictionary<int, LNBCBase> _instancePool = new Dictionary<int, LNBCBase>();
         private readonly Dictionary<int, LNElementEvent> _clickEventPool = new Dictionary<int, LNElementEvent>();
+
         private readonly Dictionary<int, LNElementEvent> _onMouseOverEventPool = new Dictionary<int, LNElementEvent>();
         private readonly Dictionary<int, LNElementEvent> _onMouseEnterEventPool = new Dictionary<int, LNElementEvent>();
         private readonly Dictionary<int, LNElementEvent> _onMouseDownEventPool = new Dictionary<int, LNElementEvent>();
@@ -32,6 +33,14 @@ namespace LuanNiao.Blazor.Core.ElementEventHub
         private readonly Dictionary<int, LNElementEvent> _onMouseMoveEventPool = new Dictionary<int, LNElementEvent>();
         private readonly Dictionary<int, LNElementEvent> _onMouseOutEventPool = new Dictionary<int, LNElementEvent>();
         private readonly Dictionary<int, LNElementEvent> _onContextMenuEventPool = new Dictionary<int, LNElementEvent>();
+
+        private readonly Dictionary<int, LNElementEvent> _onBlurEventPool = new Dictionary<int, LNElementEvent>();
+        private readonly Dictionary<int, LNElementEvent> _onChangeEventPool = new Dictionary<int, LNElementEvent>();
+        private readonly Dictionary<int, LNElementEvent> _onFocusEventPool = new Dictionary<int, LNElementEvent>();
+        private readonly Dictionary<int, LNElementEvent> _onFocusInEventPool = new Dictionary<int, LNElementEvent>();
+        private readonly Dictionary<int, LNElementEvent> _onFocusOutEventPool = new Dictionary<int, LNElementEvent>();
+        private readonly Dictionary<int, LNElementEvent> _onInputEventPool = new Dictionary<int, LNElementEvent>(); 
+
 
         public LNElementInstance(IJSRuntime runtime, string elementID, Action<string> disposingCB)
         {
@@ -44,9 +53,6 @@ namespace LuanNiao.Blazor.Core.ElementEventHub
 
         public void Remove(int id)
         {
-#if DEBUG
-            Console.WriteLine($"Remove{id}");
-#endif
             _clickEventPool.Remove(id);
             _instancePool.Remove(id);
             _onMouseEnterEventPool.Remove(id);
@@ -56,13 +62,16 @@ namespace LuanNiao.Blazor.Core.ElementEventHub
             _onMouseMoveEventPool.Remove(id);
             _onMouseOutEventPool.Remove(id);
             _onContextMenuEventPool.Remove(id);
+            _onBlurEventPool.Remove(id);
+            _onChangeEventPool.Remove(id);
+            _onFocusEventPool.Remove(id);
+            _onFocusInEventPool.Remove(id);
+            _onFocusOutEventPool.Remove(id);
+            _onInputEventPool.Remove(id); 
         }
 
         public void Dispose()
         {
-#if DEBUG
-            Console.WriteLine($"{_elementID}:{nameof(Dispose)}");
-#endif
             _disposingCB.Invoke(_elementID);
             lock (this)
             {
@@ -75,6 +84,12 @@ namespace LuanNiao.Blazor.Core.ElementEventHub
                 _onMouseMoveEventPool.Clear();
                 _onMouseOutEventPool.Clear();
                 _onContextMenuEventPool.Clear();
+                _onBlurEventPool.Clear();
+                _onChangeEventPool.Clear();
+                _onFocusEventPool.Clear();
+                _onFocusInEventPool.Clear();
+                _onFocusOutEventPool.Clear();
+                _onInputEventPool.Clear(); 
             }
             _dotNetObjectReference.Dispose();
         }

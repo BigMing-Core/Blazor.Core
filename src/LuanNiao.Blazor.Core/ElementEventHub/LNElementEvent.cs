@@ -31,9 +31,16 @@ namespace LuanNiao.Blazor.Core.ElementEventHub
             Method = methodInfo;
             _parameters = Method.GetParameters();
         }
+        public void Fire(LNBCBase instance)
+        {
+            if (instance.Disposed)
+            {
+                return;
+            }
+            Method.Invoke(instance, null);
+        }
 
-
-        public void Fire<T>(T data, LNBCBase instance)
+        public void Fire<T>(T data, LNBCBase instance) where T : class
         {
             if (instance.Disposed)
             {

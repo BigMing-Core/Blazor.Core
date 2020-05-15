@@ -30,9 +30,9 @@ namespace LuanNiao.Blazor.Core.ElementEventHub
             {
                 item.Value.Fire(mouseEvent, _instancePool[item.Key]);
             }
-        }  
-        
-           
+        }
+
+
         [JSInvokable]
         public void OnMouseEnter(MouseEvent mouseEvent)
         {
@@ -41,7 +41,7 @@ namespace LuanNiao.Blazor.Core.ElementEventHub
                 item.Value.Fire(mouseEvent, _instancePool[item.Key]);
             }
         }
-        
+
         [JSInvokable]
         public void OnMouseDown(MouseEvent mouseEvent)
         {
@@ -82,7 +82,8 @@ namespace LuanNiao.Blazor.Core.ElementEventHub
             {
                 item.Value.Fire(mouseEvent, _instancePool[item.Key]);
             }
-        } 
+        }
+
         [JSInvokable]
         public void OnContextMenu(MouseEvent mouseEvent)
         {
@@ -91,5 +92,61 @@ namespace LuanNiao.Blazor.Core.ElementEventHub
                 item.Value.Fire(mouseEvent, _instancePool[item.Key]);
             }
         }
+
+        [JSInvokable]
+        public void OnBlur()
+        {
+            foreach (var item in _onBlurEventPool)
+            {
+                item.Value.Fire(_instancePool[item.Key]);
+            }
+        }
+
+        [JSInvokable]
+        public void OnChange(KeyboardEvent keyboardEvent)
+        {
+            foreach (var item in _onChangeEventPool)
+            {
+                item.Value.Fire(keyboardEvent, _instancePool[item.Key]);
+            }
+        }
+
+        [JSInvokable]
+        public void OnFocus()
+        {
+            foreach (var item in _onFocusEventPool)
+            {
+                item.Value.Fire(_instancePool[item.Key]);
+            }
+        }
+
+        [JSInvokable]
+        public void OnFocusIn()
+        {
+            foreach (var item in _onFocusInEventPool)
+            {
+                item.Value.Fire(_instancePool[item.Key]);
+            }
+        }
+
+        [JSInvokable]
+        public void OnFocusOut()
+        {
+            foreach (var item in _onFocusOutEventPool)
+            {
+                item.Value.Fire(_instancePool[item.Key]);
+            }
+        }
+
+        [JSInvokable]
+        public void OnInput(KeyboardEvent keyboardEvent)
+        {
+            foreach (var item in _onInputEventPool)
+            {
+                item.Value.Fire(keyboardEvent, _instancePool[item.Key]);
+            }
+        }
+
+       
     }
 }

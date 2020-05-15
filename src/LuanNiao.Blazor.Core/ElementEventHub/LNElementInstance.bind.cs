@@ -113,6 +113,67 @@ namespace LuanNiao.Blazor.Core.ElementEventHub
                         }
                     }
                 }
+                else if (attr is OnBlurEventAttribute  onBlurEvent)
+                {
+                    lock (_onBlurEventPool)
+                    {
+                        if (!_onBlurEventPool.ContainsKey(instance.CreateSequence))
+                        {
+                            _onBlurEventPool.Add(instance.CreateSequence, new LNElementEvent(method, attr));
+                        }
+                    }
+                }
+                else if (attr is OnChangeEventAttribute  onChangeEvent)
+                {
+                    lock (_onChangeEventPool)
+                    {
+                        if (!_onChangeEventPool.ContainsKey(instance.CreateSequence))
+                        {
+                            _onChangeEventPool.Add(instance.CreateSequence, new LNElementEvent(method, attr));
+                        }
+                    }
+                }
+                else if (attr is OnFocusEventAttribute  onFocusEvent)
+                {
+                    lock (_onFocusEventPool)
+                    {
+                        if (!_onFocusEventPool.ContainsKey(instance.CreateSequence))
+                        {
+                            _onFocusEventPool.Add(instance.CreateSequence, new LNElementEvent(method, attr));
+                        }
+                    }
+                }
+                else if (attr is OnFocusInEventAttribute  onFocusInEvent)
+                {
+                    lock (_onFocusInEventPool)
+                    {
+                        if (!_onFocusInEventPool.ContainsKey(instance.CreateSequence))
+                        {
+                            _onFocusInEventPool.Add(instance.CreateSequence, new LNElementEvent(method, attr));
+                        }
+                    }
+                }
+                else if (attr is OnFocusOutEventAttribute  onFocusOutEvent)
+                {
+                    lock (_onFocusOutEventPool)
+                    {
+                        if (!_onFocusOutEventPool.ContainsKey(instance.CreateSequence))
+                        {
+                            _onFocusOutEventPool.Add(instance.CreateSequence, new LNElementEvent(method, attr));
+                        }
+                    }
+                }
+                else if (attr is OnInputEventAttribute onInputEvent)
+                {
+                    lock (_onInputEventPool)
+                    {
+                        if (!_onInputEventPool.ContainsKey(instance.CreateSequence))
+                        {
+                            _onInputEventPool.Add(instance.CreateSequence, new LNElementEvent(method, attr));
+                        }
+                    }
+                }
+             
 
             }
             return this;
