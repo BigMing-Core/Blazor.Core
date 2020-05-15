@@ -24,7 +24,7 @@
         }
         return elementInfo.value;
     },
-    SetElementValue: function (elementID,value) {
+    SetElementValue: function (elementID, value) {
         var elementInfo = document.getElementById(elementID);
         if (elementInfo == undefined) {
             return "";
@@ -161,7 +161,7 @@
         })
     },
     WindowScroll: function (callBack) {
-        window.addEventListener("scroll", (e) => { 
+        window.addEventListener("scroll", (e) => {
             callBack.invokeMethodAsync("Scroll", {
                 PageXOffset: window.pageXOffset,
                 PageYOffset: window.pageYOffset
@@ -224,12 +224,13 @@
     RegistElementEventHub: function (elementID, dNetInstance) {
         var elementInfo = document.getElementById(elementID);
         if (elementInfo != undefined) {
+            LuanNiaoBlazor.RegistElementRemovedEvent(elementInfo, dNetInstance, "OnElementRemoved");
             LuanNiaoBlazor.RegistElementEvent(elementInfo, "click", dNetInstance, "OnClick");
             LuanNiaoBlazor.RegistElementEvent(elementInfo, "mouseover", dNetInstance, "OnMouseOver");
         }
     },
-    RegistElementEvent: function (element, eventName, dNetInstance,methodName) {
-        element.addEventListener(eventName, (e) => { 
+    RegistElementEvent: function (element, eventName, dNetInstance, methodName) {
+        element.addEventListener(eventName, (e) => {
             var eventInfo = {
                 EventType: 0
             };
@@ -244,7 +245,7 @@
                     Control: e.ctrlKey,
                     Meta: e.metaKey,
                     Shift: e.shiftKey
-                }; 
+                };
                 LuanNiaoBlazor.MousePosition(e, eventInfo.MouseEvent);
 
             }
@@ -252,7 +253,7 @@
         });
     },
     RegistElementFormEvent: function (element, eventName, dNetInstance, methodName) {
-        element.addEventListener(eventName, (e) => {          
+        element.addEventListener(eventName, (e) => {
             var eventInfo = {
                 EventType: 0
             };
@@ -267,7 +268,7 @@
                     Control: e.ctrlKey,
                     Meta: e.metaKey,
                     Shift: e.shiftKey
-                }; 
+                };
                 LuanNiaoBlazor.MousePosition(e, eventInfo.MouseEvent);
 
             }
@@ -293,8 +294,13 @@
                 dNetInstance.invokeMethodAsync(methodName, eventInfo);
             }
         });
+    },
+    RegistElementRemovedEvent: function (element, dNetInstance, methodName) {
+        element.addEventListener("DOMNodeRemoved", async (e) => {
+            dNetInstance.invokeMethodAsync(methodName, eventInfo);
+        });
     }
-    
+
 };
 
 
