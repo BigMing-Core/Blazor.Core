@@ -173,7 +173,46 @@ namespace LuanNiao.Blazor.Core.ElementEventHub
                         }
                     }
                 }
-             
+                else if (attr is OnKeyDownEventAttribute  onKeyDownEvent)
+                {
+                    lock (_onKeyDownEventPool)
+                    {
+                        if (!_onKeyDownEventPool.ContainsKey(instance.CreateSequence))
+                        {
+                            _onKeyDownEventPool.Add(instance.CreateSequence, new LNElementEvent(method, attr));
+                        }
+                    }
+                }
+                else if (attr is OnKeypressEventAttribute onKeypressEvent)
+                {
+                    lock (_onKeypressEventPool)
+                    {
+                        if (!_onKeypressEventPool.ContainsKey(instance.CreateSequence))
+                        {
+                            _onKeypressEventPool.Add(instance.CreateSequence, new LNElementEvent(method, attr));
+                        }
+                    }
+                }
+                else if (attr is OnKeyupEventAttribute  onKeyupEvent)
+                {
+                    lock (_onKeyupEventPool)
+                    {
+                        if (!_onKeyupEventPool.ContainsKey(instance.CreateSequence))
+                        {
+                            _onKeyupEventPool.Add(instance.CreateSequence, new LNElementEvent(method, attr));
+                        }
+                    }
+                }
+                else if (attr is OnScrollEventAttribute  onScrollEvent)
+                {
+                    lock (_onScrollEventPool)
+                    {
+                        if (!_onScrollEventPool.ContainsKey(instance.CreateSequence))
+                        {
+                            _onScrollEventPool.Add(instance.CreateSequence, new LNElementEvent(method, attr));
+                        }
+                    }
+                }
 
             }
             return this;

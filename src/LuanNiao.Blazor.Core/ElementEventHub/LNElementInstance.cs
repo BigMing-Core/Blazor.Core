@@ -42,6 +42,11 @@ namespace LuanNiao.Blazor.Core.ElementEventHub
         private readonly Dictionary<int, LNElementEvent> _onInputEventPool = new Dictionary<int, LNElementEvent>(); 
 
 
+        private readonly Dictionary<int, LNElementEvent> _onKeyDownEventPool = new Dictionary<int, LNElementEvent>();
+        private readonly Dictionary<int, LNElementEvent> _onKeypressEventPool = new Dictionary<int, LNElementEvent>();
+        private readonly Dictionary<int, LNElementEvent> _onKeyupEventPool = new Dictionary<int, LNElementEvent>(); 
+
+        private readonly Dictionary<int, LNElementEvent> _onScrollEventPool = new Dictionary<int, LNElementEvent>(); 
         public LNElementInstance(IJSRuntime runtime, string elementID, Action<string> disposingCB)
         {
             _dotNetObjectReference = DotNetObjectReference.Create(this);
@@ -67,7 +72,11 @@ namespace LuanNiao.Blazor.Core.ElementEventHub
             _onFocusEventPool.Remove(id);
             _onFocusInEventPool.Remove(id);
             _onFocusOutEventPool.Remove(id);
-            _onInputEventPool.Remove(id); 
+            _onInputEventPool.Remove(id);
+            _onKeyDownEventPool.Remove(id);
+            _onKeypressEventPool.Remove(id);
+            _onKeyupEventPool.Remove(id);
+            _onScrollEventPool.Remove(id);
         }
 
         public void Dispose()
@@ -89,7 +98,11 @@ namespace LuanNiao.Blazor.Core.ElementEventHub
                 _onFocusEventPool.Clear();
                 _onFocusInEventPool.Clear();
                 _onFocusOutEventPool.Clear();
-                _onInputEventPool.Clear(); 
+                _onInputEventPool.Clear();
+                _onKeyDownEventPool.Clear();
+                _onKeypressEventPool.Clear();
+                _onKeyupEventPool.Clear();
+                _onScrollEventPool.Clear();
             }
             _dotNetObjectReference.Dispose();
         }

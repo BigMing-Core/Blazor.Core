@@ -103,15 +103,6 @@ namespace LuanNiao.Blazor.Core.ElementEventHub
         }
 
         [JSInvokable]
-        public void OnChange(KeyboardEvent keyboardEvent)
-        {
-            foreach (var item in _onChangeEventPool)
-            {
-                item.Value.Fire(keyboardEvent, _instancePool[item.Key]);
-            }
-        }
-
-        [JSInvokable]
         public void OnFocus()
         {
             foreach (var item in _onFocusEventPool)
@@ -139,14 +130,63 @@ namespace LuanNiao.Blazor.Core.ElementEventHub
         }
 
         [JSInvokable]
-        public void OnInput(KeyboardEvent keyboardEvent)
+        public void OnChange()
+        {
+            foreach (var item in _onChangeEventPool)
+            {
+                item.Value.Fire(_instancePool[item.Key]);
+            }
+        }
+
+
+        [JSInvokable]
+        public void OnInput()
         {
             foreach (var item in _onInputEventPool)
+            {
+                item.Value.Fire(_instancePool[item.Key]);
+            }
+        }
+
+
+        [JSInvokable]
+        public void OnKeyDown(KeyboardEvent keyboardEvent)
+        {
+            foreach (var item in _onKeyDownEventPool)
             {
                 item.Value.Fire(keyboardEvent, _instancePool[item.Key]);
             }
         }
 
-       
+        [JSInvokable]
+        public void OnKeypress(KeyboardEvent keyboardEvent)
+        {
+            foreach (var item in _onKeypressEventPool)
+            {
+                item.Value.Fire(keyboardEvent, _instancePool[item.Key]);
+            }
+        }
+
+
+        [JSInvokable]
+        public void OnKeyup(KeyboardEvent keyboardEvent)
+        {
+            foreach (var item in _onKeyupEventPool)
+            {
+                item.Value.Fire(keyboardEvent, _instancePool[item.Key]);
+            }
+        }
+
+
+        [JSInvokable]
+        public void OnScroll(ElementScrollEvent scrollEvent)
+        {
+            foreach (var item in _onScrollEventPool)
+            {
+                item.Value.Fire(scrollEvent, _instancePool[item.Key]);
+            }
+        }
+
+
     }
 }

@@ -224,7 +224,6 @@
     RegistElementEventHub: function (elementID, dNetInstance) {
         var elementInfo = document.getElementById(elementID);
         if (elementInfo != undefined) {
-            LuanNiaoBlazor.RegistElementRemovedEvent(elementInfo, dNetInstance, "OnElementRemoved");
             LuanNiaoBlazor.RegistElementEvent(elementInfo, "click", dNetInstance, "OnClick");
             LuanNiaoBlazor.RegistElementEvent(elementInfo, "mouseover", dNetInstance, "OnMouseOver");
             LuanNiaoBlazor.RegistElementEvent(elementInfo, "mouseenter", dNetInstance, "OnMouseEnter");
@@ -235,12 +234,20 @@
             LuanNiaoBlazor.RegistElementEvent(elementInfo, "contextmenu", dNetInstance, "OnContextMenu");
 
 
-            LuanNiaoBlazor.RegistElementEvent(elementInfo, "focus", dNetInstance, "OnFocus");
-            LuanNiaoBlazor.RegistElementEvent(elementInfo, "focusin", dNetInstance, "OnFocusIn");
-            LuanNiaoBlazor.RegistElementEvent(elementInfo, "focusout", dNetInstance, "OnFocusOut");
-            LuanNiaoBlazor.RegistElementEvent(elementInfo, "input", dNetInstance, "OnInput"); 
-            LuanNiaoBlazor.RegistElementEvent(elementInfo, "blur", dNetInstance, "OnBlur");
-            LuanNiaoBlazor.RegistElementEvent(elementInfo, "change", dNetInstance, "OnChange");
+            LuanNiaoBlazor.RegistElementCallBackEvent(elementInfo, "focus", dNetInstance, "OnFocus");
+            LuanNiaoBlazor.RegistElementCallBackEvent(elementInfo, "focusin", dNetInstance, "OnFocusIn");
+            LuanNiaoBlazor.RegistElementCallBackEvent(elementInfo, "focusout", dNetInstance, "OnFocusOut");
+            LuanNiaoBlazor.RegistElementCallBackEvent(elementInfo, "input", dNetInstance, "OnInput");
+            LuanNiaoBlazor.RegistElementCallBackEvent(elementInfo, "blur", dNetInstance, "OnBlur");
+            LuanNiaoBlazor.RegistElementCallBackEvent(elementInfo, "change", dNetInstance, "OnChange");
+            LuanNiaoBlazor.RegistElementCallBackEvent(elementInfo, "DOMNodeRemoved", dNetInstance, "OnElementRemoved");
+
+
+            LuanNiaoBlazor.RegistElementKeyboardEvent(elementInfo, "keydown", dNetInstance, "OnKeyDown");
+            LuanNiaoBlazor.RegistElementKeyboardEvent(elementInfo, "keypress", dNetInstance, "OnKeypress");
+            LuanNiaoBlazor.RegistElementKeyboardEvent(elementInfo, "keyup", dNetInstance, "OnKeyup");
+
+            LuanNiaoBlazor.RegistElementScroll(elementInfo, dNetInstance, "OnScroll");
         }
     },
     RegistElementEvent: function (element, eventName, dNetInstance, methodName) {
@@ -266,33 +273,15 @@
             dNetInstance.invokeMethodAsync(methodName, eventInfo);
         });
     },
-    RegistElementFormEvent: function (element, eventName, dNetInstance, methodName) {
+    RegistElementCallBackEvent: function (element, eventName, dNetInstance, methodName) {
         element.addEventListener(eventName, (e) => {
-            var eventInfo = {
-                EventType: 0
-            };
-            if (e.constructor == MouseEvent) {
-                eventInfo.EventType = eventInfo.EventType | 1;
-                eventInfo.MouseEvent = {
-                    Alt: e.altKey,
-                    Button: e.button,
-                    Buttons: e.buttons,
-                    ClientX: e.clientX,
-                    ClientY: e.clientY,
-                    Control: e.ctrlKey,
-                    Meta: e.metaKey,
-                    Shift: e.shiftKey
-                };
-                LuanNiaoBlazor.MousePosition(e, eventInfo.MouseEvent);
-
-            }
-            dNetInstance.invokeMethodAsync(methodName, eventInfo);
+            dNetInstance.invokeMethodAsync(methodName);
         });
     },
     RegistElementKeyboardEvent: function (element, eventName, dNetInstance, methodName) {
         element.addEventListener(eventName, async (e) => {
 
-            if (e.constructor == KeyboardEvent && allowKeyList.includes(e.keyCode)) {
+            if (e.constructor == KeyboardEvent) {
                 var eventInfo = {
                 };
                 eventInfo = {
@@ -309,28 +298,16 @@
             }
         });
     },
-    RegistElementRemovedEvent: function (element, dNetInstance, methodName) {
-        element.addEventListener("DOMNodeRemoved", async (e) => {
-            dNetInstance.invokeMethodAsync(methodName);
-        });
-    },
-    BindElementMouseEvent: function (eventName, elementID, methodName, dNetInstance) {
-        var elementInfo = document.getElementById(elementID);
-        if (elementInfo != undefined) {
-            elementInfo.addEventListener(eventName, (e) => {
-                var eventInfo = {
-                    Alt: e.altKey,
-                    Button: e.button,
-                    Buttons: e.buttons,
-                    ClientX: e.clientX,
-                    ClientY: e.clientY,
-                    Control: e.ctrlKey,
-                    Meta: e.metaKey,
-                    Shift: e.shiftKey
-                };
-                dNetInstance.invokeMethodAsync(methodName, eventInfo);
+    RegistElementScroll: function (element,  dNetInstance, methodName) {
+        element.addEventListener("scroll", (e) => {
+            dNetInstance.invokeMethodAsync(methodName, {
+                ScrollTop: e.target.scrollTop,
+                ScrollHeight: e.target.scrollHeight,
+                ScrollLeft: e.target.scrollLeft,
+                ScrollWidth: e.target.scrollWidth        
             });
-        }
+
+        });
     }
 
 };

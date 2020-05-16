@@ -46,7 +46,7 @@ namespace LuanNiao.Blazor.Core.ElementEventHub
             {
                 return;
             }
-            if (_parameters.Length == 1 && _parameters[0].ParameterType == EventTypeInfos.MouseEvent)
+            if (_parameters.Length == 1 && _parameters[0].ParameterType == typeof(T))
             {
                 _data[0] = data;
                 Method.Invoke(instance, _data);
