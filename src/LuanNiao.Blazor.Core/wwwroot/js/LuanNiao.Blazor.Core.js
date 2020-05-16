@@ -253,23 +253,16 @@
     RegistElementEvent: function (element, eventName, dNetInstance, methodName) {
         element.addEventListener(eventName, (e) => {
             var eventInfo = {
-                EventType: 0
+                Alt: e.altKey,
+                Button: e.button,
+                Buttons: e.buttons,
+                ClientX: e.clientX,
+                ClientY: e.clientY,
+                Control: e.ctrlKey,
+                Meta: e.metaKey,
+                Shift: e.shiftKey
             };
-            if (e.constructor == MouseEvent) {
-                eventInfo.EventType = eventInfo.EventType | 1;
-                eventInfo.MouseEvent = {
-                    Alt: e.altKey,
-                    Button: e.button,
-                    Buttons: e.buttons,
-                    ClientX: e.clientX,
-                    ClientY: e.clientY,
-                    Control: e.ctrlKey,
-                    Meta: e.metaKey,
-                    Shift: e.shiftKey
-                };
-                LuanNiaoBlazor.MousePosition(e, eventInfo.MouseEvent);
-
-            }
+            LuanNiaoBlazor.MousePosition(e, eventInfo); 
             dNetInstance.invokeMethodAsync(methodName, eventInfo);
         });
     },
@@ -298,13 +291,13 @@
             }
         });
     },
-    RegistElementScroll: function (element,  dNetInstance, methodName) {
+    RegistElementScroll: function (element, dNetInstance, methodName) {
         element.addEventListener("scroll", (e) => {
             dNetInstance.invokeMethodAsync(methodName, {
                 ScrollTop: e.target.scrollTop,
                 ScrollHeight: e.target.scrollHeight,
                 ScrollLeft: e.target.scrollLeft,
-                ScrollWidth: e.target.scrollWidth        
+                ScrollWidth: e.target.scrollWidth
             });
 
         });
