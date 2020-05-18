@@ -13,8 +13,8 @@ namespace LuanNiao.Blazor.Core.Common
         public double Bottom { get; set; }
         public double Left { get; set; }
         public double Right { get; set; }
-        public double Width { get; set; }
-        public double Height { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
         public double OffsetTop { get; set; }
         public double OffsetLeft { get; set; }
         public double OffsetHeight { get; set; }
