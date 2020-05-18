@@ -45,37 +45,7 @@ namespace LuanNiao.Blazor.Core
             await _jSRuntime.InvokeVoidAsync("LuanNiaoBlazor.ElementOp.ScrollTo", id, x, y);
         }
 
-        #region Mouse Events
-
-        public async void BindClickEvent<T>(string elementID, string callBackMethodName, T instance, bool isPreventDefault = false, bool isStopPropagation = false) where T : LNBCBase
-        {
-            if (instance == null)
-            {
-                return;
-            }
-            await BindEvent("click", elementID, callBackMethodName, instance, isPreventDefault, isStopPropagation);
-        }
-         
-        #endregion
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "dispose this when the instance disposing..")]
-        private async Task BindEvent<T>(string htmlEventName, string elementID, string callBackMethodName, T instance, bool isPreventDefault, bool isStopPropagation) where T : LNBCBase
-        {
-            var jsInstance = DotNetObjectReference.Create(instance);
-
-            await _jSRuntime.InvokeVoidAsync("LuanNiaoBlazor.BindElementEvent",
-                htmlEventName,
-                 elementID,
-                 callBackMethodName,
-                 jsInstance,
-                 isPreventDefault,
-                 isStopPropagation);
-            instance.Disposing += () =>
-            {
-                jsInstance.Dispose();
-            };
-
-        }
+       
 
 
 
