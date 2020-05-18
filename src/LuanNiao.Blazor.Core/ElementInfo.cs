@@ -55,46 +55,7 @@ namespace LuanNiao.Blazor.Core
             }
             await BindEvent("click", elementID, callBackMethodName, instance, isPreventDefault, isStopPropagation);
         }
-
-        public async void BindMouseOverEvent<T>(string elementID, string callBackMethodName, T instance, bool isPreventDefault = false, bool isStopPropagation = false) where T : LNBCBase
-        {
-            if (instance == null)
-            {
-                return;
-            }
-            await BindEvent("mouseover", elementID, callBackMethodName, instance, isPreventDefault, isStopPropagation);
-        }
-
-
-
-        public async void BindMouseDownEvent<T>(string elementID, string callBackMethodName, T instance, bool isPreventDefault = false, bool isStopPropagation = false) where T : LNBCBase
-        {
-            if (instance == null)
-            {
-                return;
-            }
-            await BindEvent("mousedown", elementID, callBackMethodName, instance, isPreventDefault, isStopPropagation);
-        }
-
-
-
-        public async void BindMouseOutEvent<T>(string elementID, string callBackMethodName, T instance, bool isPreventDefault = false, bool isStopPropagation = false) where T : LNBCBase
-        {
-            if (instance == null)
-            {
-                return;
-            }
-            await BindEvent("mouseout", elementID, callBackMethodName, instance, isPreventDefault, isStopPropagation);
-        }
-
-        public async void BindContextMenuEvent<T>(string elementID, string callBackMethodName, T instance, bool isPreventDefault = false, bool isStopPropagation = false) where T : LNBCBase
-        {
-            if (instance == null)
-            {
-                return;
-            }
-            await BindEvent("contextmenu", elementID, callBackMethodName, instance, isPreventDefault, isStopPropagation);
-        }
+         
         #endregion
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "dispose this when the instance disposing..")]
