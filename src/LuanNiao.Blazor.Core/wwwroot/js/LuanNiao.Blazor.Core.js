@@ -88,10 +88,27 @@
     }
 };
 
+var WindowOP = {
+    GetWindowSize: function () {
+        return {
+            InnerHeight: window.innerHeight,
+            InnerWidth: window.innerWidth,
+            OuterWidth: window.outerWidth,
+            OuterHeight: window.outerHeight
+        };
+    },
+    GetScrollInfo: function () {
+        return {
+            PageXOffset: window.pageXOffset,
+            PageYOffset: window.pageYOffset
+        };
+    }
+};
 
 
 var LuanNiaoBlazor = {
     ElementOp: ElementOp,
+    WindowOP: WindowOP,
     MousePosition: function (event, mouseEvent) {
         if (event.pageX || event.pageY) {
             mouseEvent.X = event.pageX;
@@ -240,15 +257,6 @@ var LuanNiaoBlazor = {
             });
 
         });
-    },
-    GetWindowSize: function () {
-        return {
-
-            InnerHeight: window.innerHeight,
-            InnerWidth: window.innerWidth,
-            OuterWidth: window.outerWidth,
-            OuterHeight: window.outerHeight
-        };
     },
     RegistElementEventHub: function (elementID, dNetInstance) {
         var elementInfo = document.getElementById(elementID);

@@ -40,9 +40,9 @@ namespace LuanNiao.Blazor.Core
             return await _jSRuntime.InvokeAsync<ElementScrollInfo>("LuanNiaoBlazor.ElementOp.GetElementScrollInfo", id);
         }
 
-        public async Task<ElementScrollInfo> ScrollTo(string id, float x, float y)
+        public async Task ScrollTo(string id, float x, float y)
         {
-            return await _jSRuntime.InvokeAsync<ElementScrollInfo>("LuanNiaoBlazor.ElementOp.ScrollTo", id, x, y);
+            await _jSRuntime.InvokeVoidAsync("LuanNiaoBlazor.ElementOp.ScrollTo", id, x, y);
         }
 
         #region Mouse Events

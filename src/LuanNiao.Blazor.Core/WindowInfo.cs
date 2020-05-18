@@ -20,7 +20,12 @@ namespace LuanNiao.Blazor.Core
         
         public async Task<WindowSize> GetWindowSize()
         {
-            return await _jSRuntime.InvokeAsync<WindowSize>("LuanNiaoBlazor.GetWindowSize");
+            return await _jSRuntime.InvokeAsync<WindowSize>("LuanNiaoBlazor.WindowOP.GetWindowSize");
+        }
+
+        public async Task<WindowScrollInfo> GetWindowScrollInfo()
+        {
+            return await _jSRuntime.InvokeAsync<WindowScrollInfo>("LuanNiaoBlazor.WindowOP.GetScrollInfo");
         }
 
     }
