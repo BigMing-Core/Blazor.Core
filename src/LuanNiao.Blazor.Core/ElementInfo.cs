@@ -96,9 +96,6 @@ namespace LuanNiao.Blazor.Core
             await BindEvent("contextmenu", elementID, callBackMethodName, instance, isPreventDefault, isStopPropagation);
         }
         #endregion
-        #region Form Events
-
-
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "dispose this when the instance disposing..")]
         private async Task BindEvent<T>(string htmlEventName, string elementID, string callBackMethodName, T instance, bool isPreventDefault, bool isStopPropagation) where T : LNBCBase
@@ -119,7 +116,6 @@ namespace LuanNiao.Blazor.Core
 
         }
 
-        #endregion
 
 
 

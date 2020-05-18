@@ -1,4 +1,5 @@
 ﻿using LuanNiao.Blazor.Core.ElementEventHub.Attributes;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -29,86 +30,116 @@ namespace LuanNiao.Blazor.Core.ElementEventHub
                 }
             }
 
-            Dictionary<int, LNElementEvent> eventPool = null;
             foreach (var methodName in methodNames)
             {
                 var typeInfo = instance.GetType();
                 var method = typeInfo.GetMethod(methodName);
                 var attr = method.GetCustomAttribute<LNElementEventAttribute>();
-                switch (attr)
+                var attrType = attr.GetType();
+                if (!_eventPool.ContainsKey(attrType))
                 {
-                    case OnClickEventAttribute _ :
-                        eventPool = _clickEventPool;
-                        break;
-                    case OnMouseOverEventAttribute  _:
-                        eventPool = _onMouseOverEventPool;
-                        break;
-                    case OnMouseEnterEventAttribute  _:
-                        eventPool = _onMouseEnterEventPool;
-                        break;
-                    case OnMouseDownEventAttribute _:
-                        eventPool = _onMouseDownEventPool;
-                        break;
-                    case OnMouseUpEventAttribute _:
-                        eventPool = _onMouseUpEventPool;
-                        break;
-                    case OnMouseMoveEventAttribute _:
-                        eventPool = _onMouseMoveEventPool;
-                        break;
-                    case OnMouseOutEventAttribute _:
-                        eventPool = _onMouseOutEventPool;
-                        break;
-                    case OnContextMenuEventAttribute _:
-                        eventPool = _onContextMenuEventPool;
-                        break;
-                    case OnBlurEventAttribute _:
-                        eventPool = _onBlurEventPool;
-                        break;
-                    case OnChangeEventAttribute _:
-                        eventPool = _onChangeEventPool;
-                        break;
-                    case OnFocusEventAttribute _:
-                        eventPool = _onFocusEventPool;
-                        break;
-                    case OnFocusInEventAttribute _:
-                        eventPool = _onFocusInEventPool;
-                        break;
-                    case OnFocusOutEventAttribute _:
-                        eventPool = _onFocusOutEventPool;
-                        break;
-                    case OnInputEventAttribute _:
-                        eventPool = _onInputEventPool;
-                        break;
-                    case OnKeyDownEventAttribute _:
-                        eventPool = _onKeyDownEventPool;
-                        break;
-                    case OnKeypressEventAttribute _:
-                        eventPool = _onKeypressEventPool;
-                        break;
-                    case OnKeyupEventAttribute _:
-                        eventPool = _onKeyupEventPool;
-                        break;
-                    case OnScrollEventAttribute _:
-                        eventPool = _onScrollEventPool;
-                        break;
-                    default:
-                        break;
-                }
-
-
-                lock (eventPool)
-                {
-                    if (!eventPool.ContainsKey(instance.CreateSequence))
+                    lock (_eventPool)
                     {
-                        eventPool.Add(instance.CreateSequence, new LNElementEvent(method, attr));
+                        if (!_eventPool.ContainsKey(attrType))
+                        {
+                            _eventPool.Add(attrType, new Dictionary<int, LNElementEvent>());
+                        }
+                        switch (attr)
+                        {
+                            case OnClickEventAttribute _:
+                                this.BindElementMouseEvent("click", nameof(OnClick));
+                                break;
+                            case OnMouseOverEventAttribute _:
+                                this.BindElementMouseEvent("mouseover", nameof(OnMouseOver));
+                                break;
+                            case OnMouseEnterEventAttribute _:
+                                this.BindElementMouseEvent("mouseenter", nameof(OnMouseEnter));
+                                break;
+                            case OnMouseDownEventAttribute _:
+                                this.BindElementMouseEvent("mousedown", nameof(OnMouseDown));
+                                break;
+                            case OnMouseUpEventAttribute _:
+                                this.BindElementMouseEvent("mouseup", nameof(OnMouseUp));
+                                break;
+                            case OnMouseMoveEventAttribute _:
+                                this.BindElementMouseEvent("mousemove", nameof(OnMouseMove));
+                                break;
+                            case OnMouseOutEventAttribute _:
+                                this.BindElementMouseEvent("mouseout", nameof(OnMouseOut));
+                                break;
+                            case OnContextMenuEventAttribute _:
+                                this.BindElementMouseEvent("contextmenu", nameof(OnContextMenu));
+                                break;
+                            case OnBlurEventAttribute _:
+                                this.BindElementNotificationEvent("blur", nameof(OnBlur));
+                                break;
+                            case OnChangeEventAttribute _:
+                                this.BindElementNotificationEvent("change", nameof(OnChange));
+                                break;
+                            case OnFocusEventAttribute _:
+                                this.BindElementNotificationEvent("focus", nameof(OnFocus));
+                                break;
+                            case OnFocusInEventAttribute _:
+                                this.BindElementNotificationEvent("focusin", nameof(OnFocusIn));
+                                break;
+                            case OnFocusOutEventAttribute _:
+                                this.BindElementNotificationEvent("focusout", nameof(OnFocusOut));
+                                break;
+                            case OnInputEventAttribute _:
+                                this.BindElementNotificationEvent("input", nameof(OnInput));
+                                break;
+
+                            case OnKeyDownEventAttribute _:
+                                this.BindElementKeyboardEvent("keydown", nameof(OnKeyDown));
+                                break;
+                            case OnKeypressEventAttribute _:
+                                this.BindElementKeyboardEvent("keypress", nameof(OnKeypress));
+                                break;
+                            case OnKeyupEventAttribute _:
+                                this.BindElementKeyboardEvent("keyup", nameof(OnKeyup));
+                                break;
+                            case OnScrollEventAttribute _:
+                                this.BindElementScroll(nameof(OnScroll));
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+                }
+                
+                lock (_eventPool)
+                {                    
+                    if (!_eventPool[attrType].ContainsKey(instance.CreateSequence))
+                    {
+                        _eventPool[attrType].Add(instance.CreateSequence, new LNElementEvent(method, attr));
                     }
                 }
-
-
             }
 
-            
+
             return this;
+        }
+
+        private async void BindElementMouseEvent(string eventName, string methodName)
+        {
+            await _jSRuntime.InvokeVoidAsync("LuanNiaoBlazor.ElementEventHub.BindElementMouseEvent", _elementID, eventName, _dotNetObjectReference, methodName);
+        }
+
+        private async void BindElementNotificationEvent(string eventName, string methodName)
+        {
+            await _jSRuntime.InvokeVoidAsync("LuanNiaoBlazor.ElementEventHub.BindElementNotificationEvent", _elementID, eventName, _dotNetObjectReference, methodName);
+        }
+
+        private async void BindElementKeyboardEvent(string eventName, string methodName)
+        {
+            await _jSRuntime.InvokeVoidAsync("LuanNiaoBlazor.ElementEventHub.BindElementKeyboardEvent", _elementID, eventName, _dotNetObjectReference, methodName);
+        }
+
+
+        private async void BindElementScroll(string methodName)
+        {
+            await _jSRuntime.InvokeVoidAsync("LuanNiaoBlazor.ElementEventHub.BindElementScroll", _elementID, _dotNetObjectReference, methodName);
         }
     }
 }
