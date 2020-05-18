@@ -1,4 +1,4 @@
-﻿using LuanNiao.Blazor.Core.Common;
+﻿  using LuanNiao.Blazor.Core.Common;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
