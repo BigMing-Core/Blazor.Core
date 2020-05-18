@@ -6,9 +6,9 @@ namespace LuanNiao.Blazor.Core.Common
 {
     public class ElementScrollEvent
     {
-        public int ScrollTop { get; set; }
-        public int ScrollHeight { get; set; }
-        public int ScrollLeft { get; set; }
-        public int ScrollWidth { get; set; }
+        public float ScrollTop { get; set; }
+        public float ScrollHeight { get; set; }
+        public float ScrollLeft { get; set; }
+        public float ScrollWidth { get; set; }
     }
 }

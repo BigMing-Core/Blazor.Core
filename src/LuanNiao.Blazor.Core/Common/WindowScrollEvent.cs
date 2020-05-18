@@ -6,7 +6,7 @@ namespace LuanNiao.Blazor.Core.Common
 {
     public class WindowScrollEvent
     {
-        public int PageXOffset { get; set; }
-        public int PageYOffset { get; set; }
+        public float PageXOffset { get; set; }
+        public float PageYOffset { get; set; }
     }
 }
