@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LuanNiao.Blazor.Core.Common
 {
-    public class ElementScrollEvent
+    public class ElementScrollInfo
     {
         public float ScrollTop { get; set; }
         public float ScrollHeight { get; set; }

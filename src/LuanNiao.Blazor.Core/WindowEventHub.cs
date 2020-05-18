@@ -23,7 +23,7 @@ namespace LuanNiao.Blazor.Core
 
 
         [JSInvokable]
-        public void Scroll(WindowScrollEvent windowScrollEvent)
+        public void Scroll(WindowScrollInfo windowScrollEvent)
         {
             Scrolled?.Invoke(windowScrollEvent);
         }
@@ -35,7 +35,7 @@ namespace LuanNiao.Blazor.Core
         }
 
         public event Action<WindowSize> Resized;
-        public event Action<WindowScrollEvent> Scrolled;
+        public event Action<WindowScrollInfo> Scrolled;
     }
 
 }

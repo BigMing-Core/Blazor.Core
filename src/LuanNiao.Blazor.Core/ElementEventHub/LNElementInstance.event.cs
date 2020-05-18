@@ -179,7 +179,7 @@ namespace LuanNiao.Blazor.Core.ElementEventHub
 
 
         [JSInvokable]
-        public void OnScroll(ElementScrollEvent scrollEvent)
+        public void OnScroll(ElementScrollInfo scrollEvent)
         {
             foreach (var item in _onScrollEventPool)
             {

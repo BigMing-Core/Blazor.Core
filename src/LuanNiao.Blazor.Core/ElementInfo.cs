@@ -18,26 +18,36 @@ namespace LuanNiao.Blazor.Core
 
         public async Task<ElementRects> GetElementRectsByID(string id)
         {
-            return await _jSRuntime.InvokeAsync<ElementRects>("LuanNiaoBlazor.GetElementClientRects", id);
+            return await _jSRuntime.InvokeAsync<ElementRects>("LuanNiaoBlazor.ElementOp.GetElementClientRects", id);
         }
 
         public async Task<string> GetElementValue(string id)
         {
-            return await _jSRuntime.InvokeAsync<string>("LuanNiaoBlazor.GetElementValue", id);
+            return await _jSRuntime.InvokeAsync<string>("LuanNiaoBlazor.ElementOp.GetElementValue", id);
         }
         public async void SetElementValue(string id, string value)
         {
-            await _jSRuntime.InvokeAsync<string>("LuanNiaoBlazor.SetElementValue", id, value);
+            await _jSRuntime.InvokeAsync<string>("LuanNiaoBlazor.ElementOp.SetElementValue", id, value);
         }
 
         public async Task<string> GetElementInnerText(string id)
         {
-            return await _jSRuntime.InvokeAsync<string>("LuanNiaoBlazor.GetElementInnerText", id);
+            return await _jSRuntime.InvokeAsync<string>("LuanNiaoBlazor.ElementOp.GetElementInnerText", id);
+        }
+
+        public async Task<ElementScrollInfo> GetElementScrollInfo(string id)
+        {
+            return await _jSRuntime.InvokeAsync<ElementScrollInfo>("LuanNiaoBlazor.ElementOp.GetElementScrollInfo", id);
+        }
+
+        public async Task<ElementScrollInfo> ScrollTo(string id, float x, float y)
+        {
+            return await _jSRuntime.InvokeAsync<ElementScrollInfo>("LuanNiaoBlazor.ElementOp.ScrollTo", id, x, y);
         }
 
         #region Mouse Events
 
-        public async void BindClickEvent<T>(string elementID, string callBackMethodName, T instance, bool isPreventDefault = false,bool isStopPropagation=false) where T : LNBCBase
+        public async void BindClickEvent<T>(string elementID, string callBackMethodName, T instance, bool isPreventDefault = false, bool isStopPropagation = false) where T : LNBCBase
         {
             if (instance == null)
             {
@@ -87,11 +97,11 @@ namespace LuanNiao.Blazor.Core
         }
         #endregion
         #region Form Events
- 
- 
-  
+
+
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "dispose this when the instance disposing..")]
-        private async Task BindEvent<T>(string htmlEventName, string elementID, string callBackMethodName, T instance, bool isPreventDefault, bool isStopPropagation ) where T : LNBCBase
+        private async Task BindEvent<T>(string htmlEventName, string elementID, string callBackMethodName, T instance, bool isPreventDefault, bool isStopPropagation) where T : LNBCBase
         {
             var jsInstance = DotNetObjectReference.Create(instance);
 

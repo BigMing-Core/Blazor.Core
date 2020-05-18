@@ -1,20 +1,68 @@
-﻿var LuanNiaoBlazor = {
-    MousePosition: function (event, mouseEvent) {
-        if (event.pageX || event.pageY) {
-            mouseEvent.X = event.pageX;
-            mouseEvent.Y = event.pageY;
-
-        }
-        else {
-            mouseEvent.X = event.clientX + document.body.scrollLeft - document.body.clientLeft;
-            mouseEvent.Y = event.clientY + document.body.scrollTop - document.body.clientTop;
+﻿var ElementOp = {
+    ScrollTo: function (elementID, x, y) {
+        var element = document.getElementById(elementID);
+        if (element != undefined) {
+            element.scroll(x, y);
         }
     },
-    Copy: function (text) {
-        try {
-            navigator.clipboard.writeText(text);
-        } catch   {
-
+    GetElementClientRects: function (elementID) {
+        var elementInfo = document.getElementById(elementID);
+        if (elementInfo == undefined) {
+            return {
+                X: 0,
+                Y: 0,
+                Top: 0,
+                Bottom: 0,
+                Left: 0,
+                Right: 0,
+                Width: 0,
+                Height: 0
+            }
+        }
+        var elementRects = elementInfo.getClientRects();
+        if (elementRects.length == 0) {
+            return {
+                X: 0,
+                Y: 0,
+                Top: 0,
+                Bottom: 0,
+                Left: 0,
+                Right: 0,
+                Width: 0,
+                Height: 0
+            }
+        }
+        var rectInfo = elementRects[0];
+        return {
+            X: rectInfo.x,
+            Y: rectInfo.y,
+            Top: rectInfo.top,
+            Bottom: rectInfo.bottom,
+            Left: rectInfo.left,
+            Right: rectInfo.right,
+            Width: rectInfo.width,
+            Height: rectInfo.height,
+            OffsetTop: elementInfo.offsetTop,
+            OffsetLeft: elementInfo.offsetLeft,
+            OffsetHeight: elementInfo.offsetHeight,
+            OffsetWidth: elementInfo.offsetWidth
+        }
+    },
+    GetElementScrollInfo: function (elementID) {
+        var element = document.getElementById(elementID);
+        if (element != undefined) {
+            return {
+                ScrollTop: e.target.scrollTop,
+                ScrollHeight: e.target.scrollHeight,
+                ScrollLeft: e.target.scrollLeft,
+                ScrollWidth: e.target.scrollWidth
+            };
+        }
+        return {
+            ScrollTop: 0,
+            ScrollHeight: 0,
+            ScrollLeft: 0,
+            ScrollWidth: 0
         }
     },
     GetElementValue: function (elementID) {
@@ -37,7 +85,31 @@
             return "";
         }
         return elementInfo.innerText;
+    }
+};
+
+
+
+var LuanNiaoBlazor = {
+    ElementOp: ElementOp,
+    MousePosition: function (event, mouseEvent) {
+        if (event.pageX || event.pageY) {
+            mouseEvent.X = event.pageX;
+            mouseEvent.Y = event.pageY;
+
+        }
+        else {
+            mouseEvent.X = event.clientX + document.body.scrollLeft - document.body.clientLeft;
+            mouseEvent.Y = event.clientY + document.body.scrollTop - document.body.clientTop;
+        }
     },
+    Copy: function (text) {
+        try {
+            navigator.clipboard.writeText(text);
+        } catch   {
+
+        }
+    },   
     BlockClickEvent: function (e) {
         var e = window.event || arguments.callee.caller.arguments[0];
         e.preventDefault();
@@ -178,49 +250,6 @@
             OuterHeight: window.outerHeight
         };
     },
-    GetElementClientRects: function (elementID) {
-        var elementInfo = document.getElementById(elementID);
-        if (elementInfo == undefined) {
-            return {
-                X: 0,
-                Y: 0,
-                Top: 0,
-                Bottom: 0,
-                Left: 0,
-                Right: 0,
-                Width: 0,
-                Height: 0
-            }
-        }
-        var elementRects = elementInfo.getClientRects();
-        if (elementRects.length == 0) {
-            return {
-                X: 0,
-                Y: 0,
-                Top: 0,
-                Bottom: 0,
-                Left: 0,
-                Right: 0,
-                Width: 0,
-                Height: 0
-            }
-        }
-        var rectInfo = elementRects[0];
-        return {
-            X: rectInfo.x,
-            Y: rectInfo.y,
-            Top: rectInfo.top,
-            Bottom: rectInfo.bottom,
-            Left: rectInfo.left,
-            Right: rectInfo.right,
-            Width: rectInfo.width,
-            Height: rectInfo.height,
-            OffsetTop: elementInfo.offsetTop,
-            OffsetLeft: elementInfo.offsetLeft,
-            OffsetHeight: elementInfo.offsetHeight,
-            OffsetWidth: elementInfo.offsetWidth
-        }
-    },
     RegistElementEventHub: function (elementID, dNetInstance) {
         var elementInfo = document.getElementById(elementID);
         if (elementInfo != undefined) {
@@ -304,7 +333,6 @@
     }
 
 };
-
 
 
 
